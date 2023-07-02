@@ -5,14 +5,14 @@ import { Note as NoteType } from 'misskey-js/built/entities'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 
-export default function EmbeddableNote(note : NoteType) {
+export default function EmbeddableNote(note: NoteType) {
     const { isFallback } = useRouter()
     return (isFallback ? <Skeleton></Skeleton> : <Note {...note}></Note>)
 }
 
 export const getStaticPaths: GetStaticPaths = () => ({
     fallback: true,
-    paths: [{params:{slug:[]}}]
+    paths: [{ params: { slug: ['misskey.cloud', '9gowykckhw'] } }]
 })
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {

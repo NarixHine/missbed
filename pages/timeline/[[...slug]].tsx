@@ -16,7 +16,7 @@ export default function EmbeddableNote({ notes, instance, userId }: {
 
 export const getStaticPaths: GetStaticPaths = () => ({
     fallback: 'blocking',
-    paths: [],
+    paths: [{ params: { slug: ['misskey.cloud', '9cxdmiu7h5'] } }],
 })
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
