@@ -2,6 +2,7 @@ import { Note } from 'misskey-js/built/entities'
 import { Yomogi, Sawarabi_Mincho } from 'next/font/google'
 import { useEffect, useState } from 'react'
 import ProgressiveImage from 'react-progressive-image-loading'
+import Autolinker from 'autolinker'
 
 const yomogi = Yomogi({ weight: '400', subsets: ['latin'] })
 const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
@@ -9,7 +10,6 @@ const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
 export default function Note({ id, user, createdAt, text, files }: Note) {
     const [isMounted, setIsMounted] = useState(false)
     useEffect(() => setIsMounted(true), [])
-
     return (
         <article className='bg-stone-50 w-full p-7 rounded'>
             <header className='flex gap-3'>
@@ -21,9 +21,11 @@ export default function Note({ id, user, createdAt, text, files }: Note) {
             </header>
             <br></br>
 
-            <div className={`${mincho.className} break-words`}>
-                {text}
-            </div>
+            <div className={`${mincho.className} break-words whitespace-pre-line`} dangerouslySetInnerHTML={{
+                __html: Autolinker.link(text ?? '', {
+                    className: 'text-link'
+                })
+            }}></div>
             <br className={files.length > 0 ? '' : 'hidden'}></br>
             <div className={`${files.length > 0 ? 'grid' : 'hidden'} grid-cols-2 gap-5 p-1.5`} style={{ boxShadow: ' rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset' }}>
                 {
