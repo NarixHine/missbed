@@ -1,11 +1,15 @@
 import { Note } from 'misskey-js/built/entities'
 import { Yomogi, Klee_One } from 'next/font/google'
+import { useEffect, useState } from 'react'
 import ProgressiveImage from 'react-progressive-image-loading'
 
 const yomogi = Yomogi({ weight: '400', subsets: ['latin'] })
 const klee = Klee_One({ weight: '400', subsets: ['latin'] })
 
 export default function Note({ id, user, createdAt, text, files }: Note) {
+    const [isMounted, setIsMounted] = useState(false)
+    useEffect(() => setIsMounted(true), [])
+
     return (
         <article className='bg-stone-50 w-full p-7 rounded-3xl'>
             <header className='flex gap-3'>
@@ -22,13 +26,13 @@ export default function Note({ id, user, createdAt, text, files }: Note) {
             <br></br>
             <div className={`${files.length > 0 ? 'grid' : 'hidden'} grid-cols-2 gap-5 p-1.5`} style={{ boxShadow: ' rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset' }}>
                 {
-                    files.map((file) => (
+                    isMounted ? files.map((file) => (
                         <ProgressiveImage key={file.id} preview={file.thumbnailUrl} src={file.url} render={(src, style) => (
                             <div className='overflow-clip max-h-48 rounded'>
                                 <img src={src} alt={file.name} style={style} className='rounded' />
                             </div>
                         )}></ProgressiveImage>
-                    ))
+                    )) : <></>
                 }
             </div>
             <br></br>
