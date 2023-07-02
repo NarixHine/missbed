@@ -38,8 +38,8 @@ export default function Note({ id, user, createdAt, text, files }: Note) {
             </div>
             <br></br>
 
-            <footer className={`${yomogi.className} text-stone-500`}>
-                <a className='text-sm' href={`${user.avatarUrl.split('proxy')[0]}notes/${id}`} target='_blank' rel='noreferrer'>Posted at {createdAt.replace('T', ' ').split('.')[0]}</a>
+            <footer className={`${yomogi.className} text-stone-500 text-sm`}>
+                <a className='underline' href={`${user.avatarUrl.split('proxy')[0]}notes/${id}`} target='_blank' rel='noreferrer'>Noted</a> at {createdAt.replace('T', ' ').split('.')[0]}
             </footer>
         </article>
     )

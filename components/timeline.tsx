@@ -30,7 +30,7 @@ export default function Timeline({ notes, userId, instance, boardly = false }: {
                 loadedNotes.map(note => (
                     <div key={note.id}>
                         <Note {...note}></Note>
-                        <div className='w-3 h-6 bg-stone-50 mx-auto'></div>
+                        {boardly ? <></> : <div className='w-3 h-3 bg-stone-50 mx-auto'></div>}
                     </div>
                 ))
             }

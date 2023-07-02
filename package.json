@@ -19,10 +19,16 @@
     "next": "13.4.7",
     "postcss": "8.4.24",
     "react": "18.2.0",
-    "react-blurhash": "^0.3.0",
+    "react-div-100vh": "^0.7.0",
     "react-dom": "18.2.0",
+    "react-embed-gist": "^1.0.17",
+    "react-github-corner": "^2.5.0",
     "react-progressive-image-loading": "^3.0.3",
     "tailwindcss": "3.3.2",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/iframe-resizer": "^3.5.9",
+    "@types/react-embed-gist": "^1.0.1"
   }
 }
