@@ -1,12 +1,13 @@
 # Missbed
 
-> An third-party embedding solution for Misskey.
+> A third-party embedding solution for Misskey.
+![Preview](https://github.com/NarixHine/missbed/assets/127665924/69f0d483-8cf1-45b6-8d64-a07fcb1dba0d)
 
 Missbed uses Incremental Site Generation (ISR) with `Next.js` (`Pages` router).
 
 ## Features
 
-Following Note components are supported:
+The following Note components are supported:
 - Images
 - Hide Content
 - Links (no OpenGraph Cards)
