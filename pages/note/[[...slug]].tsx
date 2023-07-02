@@ -12,7 +12,7 @@ export default function EmbeddableNote(note : NoteType) {
 
 export const getStaticPaths: GetStaticPaths = () => ({
     fallback: true,
-    paths: []
+    paths: [{params:{slug:[]}}]
 })
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {

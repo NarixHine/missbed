@@ -19,10 +19,10 @@ export default function Home() {
       <p className='text-center text-slate-500'>Embedding solution for Misskey.</p>
       <br></br>
 
-      <main className='w-2/5 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5' style={{ minWidth: 400 }}>
+      <main className='w-2/5 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 400 }}>
         <ReactEmbedGist titleClass='hidden' loadingClass='hidden' gist='NarixHine/6451fe18c4924fa55c3102abd8083cdc'></ReactEmbedGist>
         <hr className='my-5 border-slate-800'></hr>
-        <iframe src='/note/misskey.cloud/9ghos7i09u' width={'100%'} height={230} className='mx-auto'></iframe>
+        <iframe src='/note/misskey.cloud/9gowykckhw' width={'100%'} height={258} className='mx-auto'></iframe>
         <br></br>
         <iframe src='/timeline/misskey.cloud/9cxdmiu7h5' width={'100%'} height={800} className='mx-auto'></iframe>
       </main>
