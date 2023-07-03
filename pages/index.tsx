@@ -13,10 +13,10 @@ export default function Home() {
     <Div100vh className={`${mincho.className} bg-gradient-to-tr from-indigo-200 via-red-200 to-yellow-100 overflow-y-auto p-12`}>
       <GithubCorner href='https://github.com/NarixHine/missbed' bannerColor='pink' target='_blank' style={{ opacity: 0.7 }} />
 
-      <h1 className='text-5xl text-center text-pink-700'>
-        Missbed
+      <h1 className='text-5xl text-center'>
+        <span className='bg-clip-text font-extrabold text-transparent bg-gradient-to-r from-indigo-300 to-purple-400'>Missbed</span>
       </h1>
-      <p className='text-center text-slate-500 italic'>Embedding solution for <a className='text-lime-600'>Misskey</a>.</p>
+      <p className='text-center text-slate-500 italic'>Embedding solution for <a className='text-lime-600'>Misskey</a></p>
       <br></br>
 
       <main className='w-1/2 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 280 }}>

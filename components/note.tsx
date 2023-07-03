@@ -94,8 +94,8 @@ const Enquette = ({ poll }: {
                         key={text}
                         className={`${mincho.className} w-full border-lime-200 border-2 my-1 whitespace-nowrap rounded`}
                     >
-                        <div style={{ width: `${votes / allVotes * 100}%` }} className='p-2 bg-lime-100 text-teal-800 text-sm font-bold rounded'>
-                            {text} <a className='text-xs border-l-2 px-1 border-teal-600 text-teal-600'>{votes} Votes</a>
+                        <div style={{ width: `${votes / allVotes * 100}%` }} className='p-2 bg-lime-100 text-teal-800 text-sm rounded'>
+                            {text} <a className='text-xs border-l px-1 border-teal-600 text-teal-600'>{votes} {votes === 1 ? 'Vote' : 'Votes'}</a>
                         </div>
                     </div>
                 ))
