@@ -26,7 +26,7 @@ export default function Home() {
       <main className='w-1/2 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 280 }}>
         <ReactEmbedGist titleClass='hidden' loadingClass='hidden' gist='NarixHine/6451fe18c4924fa55c3102abd8083cdc'></ReactEmbedGist>
         <hr className='my-5 border-slate-800'></hr>
-        <iframe src='/note/misskey.dev/9gqe0616gv' width={'100%'} height={660} className='mx-auto'></iframe>
+        <iframe src='/note/misskey.dev/9gqf1lkza2' width={'100%'} height={660} className='mx-auto'></iframe>
         <br></br>
         <iframe src='/timeline/misskey.cloud/9cxdmiu7h5' width={'100%'} height={800} className='mx-auto'></iframe>
       </main>

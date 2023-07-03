@@ -80,7 +80,7 @@ const Images = ({ files }: { files: DriveFile[] }) => {
         <div className={'grid grid-cols-2 gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20'} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
             {
                 isMounted ? files.map(({ id, thumbnailUrl, url, isSensitive, name }, index) => (
-                    <ProgressiveImage key={id} preview={thumbnailUrl} src={isSensitive ? thumbnailUrl : url} render={(src, style) => (
+                    <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
                         <div className='overflow-clip aspect-square rounded relative'>
                             <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 5)}px)` }} />
                             <div style={{ opacity: 1 - opacities[index] }} className={`${mincho.className} ${1 - opacities[index] > 0 ? '' : 'hidden'} w-full p-1 text-center absolute top-1/2 -translate-y-1/2`}>
