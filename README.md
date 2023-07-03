@@ -5,10 +5,10 @@
 
 ## Features
 
-The following Note components are supported:
-- Images
+The following note components are supported:
+- Mentions, Hashtags & Links (currently no OpenGraph support)
+- Images (including NSFW Warning)
 - Hide Content
-- Links (no OpenGraph Cards)
 - Enquête
 
 ## Usage

@@ -1,12 +1,11 @@
-import Note from '@/components/note'
+import Note, { NoteProps } from '@/components/note'
 import Skeleton from '@/components/skeleton'
 import cli from '@/lib/misskey'
-import { Note as NoteType } from 'misskey-js/built/entities'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-export default function EmbeddableNote(note: NoteType) {
+export default function EmbeddableNote(note: NoteProps) {
     const { isFallback } = useRouter()
     return isFallback ? <Skeleton></Skeleton> : (<>
         <Head>
@@ -25,7 +24,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     if (params) {
         const [instance, noteId] = params.slug as string[]
         const note = await cli(instance).request('notes/show', { noteId })
-        return note.poll ? { props: note, revalidate: 10 } : { props: note }
+        return { props: { ...note, instance }, revalidate: 10 }
     }
     return { notFound: true }
 }

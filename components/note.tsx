@@ -8,7 +8,11 @@ import Image from 'next/image'
 const yomogi = Yomogi({ weight: '400', subsets: ['latin'] })
 const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
 
-export default function Note({ id, user, createdAt, text, files, cw, poll }: Note) {
+export interface NoteProps extends Note {
+    instance: string
+}
+
+export default function Note({ id, user, createdAt, text, files, cw, poll, instance }: NoteProps) {
     const [show, setShow] = useState(!cw)
 
     return (
@@ -29,24 +33,38 @@ export default function Note({ id, user, createdAt, text, files, cw, poll }: Not
             {
                 show ?
                     (<>
-                        <Text text={text}></Text>
+                        <Text text={text} instance={instance}></Text>
                         <Enquette poll={poll}></Enquette>
                         <Images files={files}></Images>
                     </>) : <></>
             }
 
             <footer className={`${yomogi.className} text-stone-500 text-sm`}>
-                <a className='underline' href={`${user.avatarUrl.split('proxy')[0]}notes/${id}`} target='_blank' rel='noreferrer'>Noted</a> at {createdAt.replace('T', ' ').split('.')[0]}
+                <a className='underline' href={`https://${instance}/notes/${id}`} target='_blank' rel='noreferrer'>Noted</a> at {createdAt.replace('T', ' ').split('.')[0]}
             </footer>
         </article>
     )
 }
 
-const Text = ({ text }: { text: string | null }) => text ? (
+const Text = ({ text, instance }: { text: string | null, instance: string }) => text ? (
     <>
         <div className={`${mincho.className} break-words whitespace-pre-line`} dangerouslySetInnerHTML={{
             __html: Autolinker.link(text, {
-                className: 'text-link'
+                className: 'text-link',
+                mention: 'twitter',
+                hashtag: 'twitter',
+                replaceFn: (match) => {
+                    const text = match.getMatchedText()
+                    const tag = match.buildTag()
+                    switch (match.type) {
+                        case 'mention':
+                            return tag.setAttr('href', `https://${instance}/${text}`)
+                        case 'hashtag':
+                            return tag.setAttr('href', `https://${instance}/tags/${text.replace('#', '')}`)
+                        default:
+                            return tag
+                    }
+                }
             })
         }}></div>
         <br></br>
