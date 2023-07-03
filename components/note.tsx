@@ -18,7 +18,7 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, insta
     return (
         <article className='bg-stone-50 w-full p-7 rounded'>
             <header className='flex gap-3'>
-                <Image width={56} height={56} src={user.avatarUrl} alt='Avatar' className='w-14 h-14 rounded-full'></Image>
+                <Image width={56} height={56} src={user.avatarUrl} alt='Avatar' className='rounded-full'></Image>
                 <div className={`${yomogi.className} flex flex-col justify-center leading-tight`}>
                     <p className='text-stone-900 font-bold'>{user.name}</p>
                     <p className='text-stone-900'>{`@${user.username}`}</p>
@@ -82,7 +82,7 @@ const Images = ({ files }: { files: DriveFile[] }) => {
                 isMounted ? files.map(({ id, thumbnailUrl, url, isSensitive, name }, index) => (
                     <ProgressiveImage key={id} preview={thumbnailUrl} src={isSensitive ? thumbnailUrl : url} render={(src, style) => (
                         <div className='overflow-clip aspect-square rounded relative'>
-                            <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index] }} />
+                            <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 5)}px)` }} />
                             <div style={{ opacity: 1 - opacities[index] }} className={`${mincho.className} ${1 - opacities[index] > 0 ? '' : 'hidden'} w-full p-1 text-center absolute top-1/2 -translate-y-1/2`}>
                                 <a className='text-lg'>NSFW</a>
                                 <br></br>
