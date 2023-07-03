@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     if (params) {
         const [instance, userId] = params.slug as string[]
         const notes = await cli(instance).request('users/notes', { userId })
-        return { props: { notes, instance, userId } }
+        return { props: { notes, instance, userId }, revalidate: 10 }
     }
     return { notFound: true }
 }

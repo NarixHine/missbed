@@ -13,13 +13,13 @@ export default function Home() {
     <Div100vh className={`${mincho.className} bg-gradient-to-tr from-indigo-200 via-red-200 to-yellow-100 overflow-y-auto p-12`}>
       <GithubCorner href='https://github.com/NarixHine/missbed' bannerColor='pink' target='_blank' style={{ opacity: 0.7 }} />
 
-      <h1 className='text-5xl text-center text-pink-600'>
+      <h1 className='text-5xl text-center text-pink-700'>
         Missbed
       </h1>
-      <p className='text-center text-slate-500'>Embedding solution for Misskey.</p>
+      <p className='text-center text-slate-500 italic'>Embedding solution for <a className='text-lime-600'>Misskey</a>.</p>
       <br></br>
 
-      <main className='w-2/5 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 400 }}>
+      <main className='w-1/2 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 280 }}>
         <ReactEmbedGist titleClass='hidden' loadingClass='hidden' gist='NarixHine/6451fe18c4924fa55c3102abd8083cdc'></ReactEmbedGist>
         <hr className='my-5 border-slate-800'></hr>
         <iframe src='/note/misskey.cloud/9gowykckhw' width={'100%'} height={258} className='mx-auto'></iframe>

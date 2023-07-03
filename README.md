@@ -3,18 +3,19 @@
 > A third-party embedding solution for Misskey.
 ![Preview](https://github.com/NarixHine/missbed/assets/127665924/69f0d483-8cf1-45b6-8d64-a07fcb1dba0d)
 
-Missbed uses Incremental Site Generation (ISR) with `Next.js` (`Pages` router).
-
 ## Features
 
 The following Note components are supported:
 - Images
 - Hide Content
 - Links (no OpenGraph Cards)
+- Enquête
 
 ## Usage
 
-You can embed a note or a timeline of a user using `<iframe>`。
+### Use `missbed.narix.link`
+
+Embed a note or a timeline of a user using `<iframe>`。
 
 You can read your own UID in `Settings - Other`.
 
@@ -26,6 +27,8 @@ You can read your own UID in `Settings - Other`.
 <iframe src='https://missbed.narix.link/note/{instance}/{note_id}' />
 ```
 
-## TODO 
+### Deploy your own
 
-- Support Enquête
+`missbed.narix.link` uses `@vercel/analytics`. You can fork this repo, modify `_app.tsx`, and deploy yours. Or simply click this `Deploy with Vercel` button.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FNarixHine%2Fmissbed)
