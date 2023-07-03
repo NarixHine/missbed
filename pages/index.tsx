@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import { Sawarabi_Mincho } from 'next/font/google'
+import Head from 'next/head'
 import Div100vh from 'react-div-100vh'
 import GithubCorner from 'react-github-corner'
 
@@ -11,6 +12,9 @@ const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
 export default function Home() {
   return (
     <Div100vh className={`${mincho.className} bg-gradient-to-tr from-indigo-200 via-red-200 to-yellow-100 overflow-y-auto p-12`}>
+      <Head>
+        <meta name='description' content={'Embedding solution for Misskey. Homepage of Missbed.'} />
+      </Head>
       <GithubCorner href='https://github.com/NarixHine/missbed' bannerColor='pink' target='_blank' style={{ opacity: 0.7 }} />
 
       <h1 className='text-5xl text-center'>

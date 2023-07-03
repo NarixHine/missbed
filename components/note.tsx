@@ -45,7 +45,7 @@ export default function Note({ id, user, createdAt, text, files, cw, poll }: Not
 const Text = ({ text }: { text: string | null }) => text ? (
     <>
         <div className={`${mincho.className} break-words whitespace-pre-line`} dangerouslySetInnerHTML={{
-            __html: Autolinker.link(text ?? '', {
+            __html: Autolinker.link(text, {
                 className: 'text-link'
             })
         }}></div>
@@ -56,14 +56,30 @@ const Text = ({ text }: { text: string | null }) => text ? (
 const Images = ({ files }: { files: DriveFile[] }) => {
     const [isMounted, setIsMounted] = useState(false)
     useEffect(() => setIsMounted(true), [])
+    const [opacities, setOpacities] = useState<number[]>(files.map(({ isSensitive }) => (isSensitive ? 0.1 : 1)))
 
     return files.length > 0 ? (<>
         <div className={'grid grid-cols-2 gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20'} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
             {
-                isMounted ? files.map((file) => (
-                    <ProgressiveImage key={file.id} preview={file.thumbnailUrl} src={file.url} render={(src, style) => (
+                isMounted ? files.map(({ id, thumbnailUrl, url, isSensitive, name }, index) => (
+                    <ProgressiveImage key={id} preview={thumbnailUrl} src={isSensitive ? thumbnailUrl : url} render={(src, style) => (
                         <div className='overflow-clip aspect-square rounded relative'>
-                            <Image fill src={src} alt={file.name} style={{ ...style, objectFit: 'cover' }} />
+                            <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index] }} />
+                            <div style={{ opacity: 1 - opacities[index] }} className={`${mincho.className} ${1 - opacities[index] > 0 ? '' : 'hidden'} w-full p-1 text-center absolute top-1/2 -translate-y-1/2`}>
+                                <a className='text-lg'>NSFW</a>
+                                <br></br>
+                                <button className='text-slate-400 border-solid border-2 px-1 text-xs' onClick={() => {
+                                    const fadeInInterval = setInterval(() => {
+                                        setOpacities(opacities => Array.from(opacities, (opacity, i) => {
+                                            const newOpacity = i === index ? opacity + 0.01 : opacity
+                                            if (newOpacity > 1) {
+                                                clearInterval(fadeInInterval)
+                                            }
+                                            return newOpacity
+                                        }))
+                                    }, 5)
+                                }}>Click to View</button>
+                            </div>
                         </div>
                     )}></ProgressiveImage>
                 )) : <></>

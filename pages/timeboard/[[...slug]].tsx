@@ -1,17 +1,20 @@
-import Skeleton from '@/components/skeleton'
 import Timeline from '@/components/timeline'
 import cli from '@/lib/misskey'
 import { Note } from 'misskey-js/built/entities'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 export default function EmbeddableNote({ notes, instance, userId }: {
     notes: Note[],
     instance: string,
     userId: string
 }) {
-    const { isFallback } = useRouter()
-    return (isFallback ? <Skeleton></Skeleton> : <Timeline notes={notes} instance={instance} userId={userId} boardly></Timeline>)
+    return (<>
+        <Head>
+            <meta name='description' content={`UID: ${userId}. Username: ${notes[0].user.name}`} />
+        </Head>
+        <Timeline notes={notes} instance={instance} userId={userId} boardly></Timeline>
+    </>)
 }
 
 export const getStaticPaths: GetStaticPaths = () => ({
