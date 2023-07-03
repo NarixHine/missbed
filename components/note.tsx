@@ -54,13 +54,13 @@ const Text = ({ text, instance }: { text: string | null, instance: string }) => 
                 mention: 'twitter',
                 hashtag: 'twitter',
                 replaceFn: (match) => {
-                    const text = match.getMatchedText()
+                    const pattern = match.getMatchedText()
                     const tag = match.buildTag()
                     switch (match.type) {
                         case 'mention':
-                            return tag.setAttr('href', `https://${instance}/${text}`)
+                            return tag.setAttr('href', `https://${instance}/${pattern}`)
                         case 'hashtag':
-                            return tag.setAttr('href', `https://${instance}/tags/${text.replace('#', '')}`)
+                            return tag.setAttr('href', `https://${instance}/tags/${pattern.replace('#', '')}`)
                         default:
                             return tag
                     }
@@ -79,14 +79,14 @@ const Images = ({ files }: { files: DriveFile[] }) => {
     return files.length > 0 ? (<>
         <div className={'grid grid-cols-2 gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20'} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
             {
-                isMounted ? files.map(({ id, thumbnailUrl, url, isSensitive, name }, index) => (
+                isMounted ? files.map(({ id, thumbnailUrl, url, name }, index) => (
                     <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
                         <div className='overflow-clip aspect-square rounded relative'>
                             <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 5)}px)` }} />
                             <div style={{ opacity: 1 - opacities[index] }} className={`${mincho.className} ${1 - opacities[index] > 0 ? '' : 'hidden'} w-full p-1 text-center absolute top-1/2 -translate-y-1/2`}>
                                 <a className='text-lg'>NSFW</a>
                                 <br></br>
-                                <button className='text-slate-400 border-solid border-2 px-1 text-xs' onClick={() => {
+                                <button className='text-slate-400 border-solid border-slate-400 border-2 px-1 text-xs' onClick={() => {
                                     const fadeInInterval = setInterval(() => {
                                         setOpacities(opacities => Array.from(opacities, (opacity, i) => {
                                             const newOpacity = i === index ? opacity + 0.01 : opacity
