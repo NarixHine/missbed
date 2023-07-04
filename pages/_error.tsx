@@ -19,7 +19,7 @@ function Error({ statusCode }: ErrorProps) {
 
             <div className={`${mincho.className} break-words whitespace-pre-line`}>
                 <p className='text-red-500'>ERROR! {statusCode}</p>
-                <p>You are viewing the error page of Missbed, an embedding solution website for Misskey. The error is probably caused by the possibility that the content being accessed is deleted or private.</p>
+                <p>You are viewing the error page of Missbed, an embedding solution website for Misskey. The error is probably caused by the possibility that the content you are trying to access is deleted or private.</p>
             </div>
             <br></br>
             <footer className={`${yomogi.className} text-stone-500 text-sm`}>

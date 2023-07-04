@@ -33,7 +33,7 @@ export default function Home() {
       </main>
       <br></br>
 
-      <p className='text-center text-slate-700 align-middle'>— Made by <a href='https://misskey.dev/@NH' className='italic'>Narix Hine <Image src='/nh.png' className='align-middle mx-1' quality={100} width={30} height={30} alt='Narix Hine'></Image></a> —</p>
+      <p className='text-center text-slate-700 align-middle'>— Made by <a target='_blank' rel='noreferrer' href='https://misskey.dev/@NH' className='italic'>Narix Hine <Image src='/nh.png' className='align-middle mx-1' quality={100} width={25} height={25} alt='Narix Hine'></Image></a> —</p>
     </Div100vh>
   )
 }

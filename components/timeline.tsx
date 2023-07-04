@@ -3,7 +3,6 @@ import { useState } from 'react'
 import cli from '@/lib/misskey'
 import { Note as NoteType } from 'misskey-js/built/entities'
 import { OgObject } from 'open-graph-scraper/dist/lib/types'
-import getOgs from '@/lib/og'
 
 export default function Timeline({ notes, userId, instance, boardly = false, ogs }: {
     notes: NoteType[],

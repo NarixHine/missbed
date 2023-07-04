@@ -2,7 +2,7 @@
 
 > A third-party embedding solution for Misskey.
 > 
-> ![Preview](https://github.com/NarixHine/missbed/assets/127665924/69f0d483-8cf1-45b6-8d64-a07fcb1dba0d)
+> ![Preview](https://github.com/NarixHine/missbed/assets/127665924/1935d23f-e348-4b77-acf2-35de8b06706a)
 
 ## Features
 
@@ -34,6 +34,6 @@ You can read your own UID in `Settings - Other`.
 
 ### Deploy your own
 
-`missbed.narix.link` uses `@vercel/analytics`. You can fork this repo, modify `_app.tsx`, and deploy yours. Or simply click this `Deploy with Vercel` button.
+`missbed.narix.link` uses `@vercel/analytics` for analysis and no token for retrieving Misskey data. You can fork this repo, modify `pages/_app.tsx`, `lib/misskey.ts` as well as other related files, and deploy your modified version. Or simply click this button to deploy on Vercel directly.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FNarixHine%2Fmissbed)
