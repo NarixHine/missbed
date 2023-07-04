@@ -1,7 +1,8 @@
-# Missbed
+# ![Missbed Icon](https://github.com/NarixHine/missbed/assets/127665924/232af2e8-6851-4c25-9f7f-68fca6aed008) Missbed
 
 > A third-party embedding solution for Misskey.
-![Preview](https://github.com/NarixHine/missbed/assets/127665924/69f0d483-8cf1-45b6-8d64-a07fcb1dba0d)
+> 
+> ![Preview](https://github.com/NarixHine/missbed/assets/127665924/69f0d483-8cf1-45b6-8d64-a07fcb1dba0d)
 
 ## Features
 

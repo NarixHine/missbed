@@ -55,14 +55,14 @@ const Cards = ({ ogs }: { ogs: OgObject[] }) => {
             ogs.map(({ ogImage, ogTitle, requestUrl, ogDescription }) => (
                 (
                     <a key={requestUrl} href={requestUrl} target='_blank' rel='noreferrer'>
-                        <div className='flex h-20 w-full my-2'>
+                        <div className='flex h-20 my-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20'>
                             <div className='relative w-20 h-20 shrink-0 rounded-l overflow-clip'>
                                 <Image src={(ogImage as ImageObject[])[0].url} className='object-cover' fill alt={ogTitle as string}></Image>
                             </div>
-                            <div className={`${mincho.className} p-4 border-slate-300 border border-l-0 rounded-r overflow-y-clip whitespace-nowrap text-ellipsis overflow-x-hidden bg-gradient-to-r from-rose-100/20 to-teal-100/20`}>
+                            <div className={`${mincho.className} w-full p-4 border-slate-300 border border-l-0 rounded-r overflow-y-clip whitespace-nowrap text-ellipsis overflow-x-hidden`}>
                                 {ogTitle}
                                 <br></br>
-                                <span className='w-full text-slate-500 text-sm'>
+                                <span className='text-slate-500 text-sm'>
                                     {ogDescription ?? ''}
                                 </span>
                             </div>
