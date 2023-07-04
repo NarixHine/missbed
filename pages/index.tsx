@@ -12,14 +12,15 @@ const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <Div100vh className={`${mincho.className} bg-gradient-to-tr from-indigo-200 via-red-200 to-yellow-100 overflow-y-auto p-12`}>
+    <Div100vh className={`${mincho.className} bg-gradient-to-tr from-indigo-200 via-red-200 to-yellow-100 overflow-y-auto p-8`}>
       <Head>
         <meta name='description' content={'Embedding solution for Misskey. Homepage of Missbed.'} />
       </Head>
       <GithubCorner href='https://github.com/NarixHine/missbed' bannerColor='pink' target='_blank' style={{ opacity: 0.7 }} />
 
       <h1 className='text-5xl text-center'>
-        <span className='bg-clip-text font-extrabold text-transparent bg-gradient-to-r from-indigo-300 to-purple-400'>Missbed</span>
+        <Image className='my-2' src={'/og.png'} quality={100} width={72} height={72} alt='Missbed Logo'></Image>
+        <div className='bg-clip-text font-extrabold text-transparent bg-gradient-to-r from-indigo-300 to-purple-400'>Missbed</div>
       </h1>
       <p className='text-center text-slate-500 italic'>Embedding solution for <a className='text-lime-600'>Misskey</a></p>
       <br></br>
@@ -33,7 +34,7 @@ export default function Home() {
       </main>
       <br></br>
 
-      <p className='text-center text-slate-700 align-middle'>— Made by <a target='_blank' rel='noreferrer' href='https://misskey.dev/@NH' className='italic'>Narix Hine <Image src='/nh.png' className='align-middle mx-1' quality={100} width={25} height={25} alt='Narix Hine'></Image></a> —</p>
+      <footer className='text-center text-slate-700 align-middle'>— Made by <a target='_blank' rel='noreferrer' href='https://misskey.dev/@NH' className='italic'>Narix Hine <Image src='/nh.png' className='align-middle mx-1' quality={100} width={22} height={25} alt='Narix Hine'></Image></a> —</footer>
     </Div100vh>
   )
 }
