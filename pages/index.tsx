@@ -20,7 +20,7 @@ export default function Home() {
 
       <h1 className='text-5xl text-center'>
         <div className='my-2 relative h-20'>
-          <Image className='absolute animate-fade left-1/2 -translate-x-1/2' src={'/og.png'} quality={100} width={80} height={80} alt='Missbed Logo'></Image>
+          <Image priority={true} className='absolute animate-fade left-1/2 -translate-x-1/2' src={'/og.png'} quality={100} width={80} height={80} alt='Missbed Logo'></Image>
         </div>
         <div className='bg-clip-text font-extrabold text-transparent bg-gradient-to-r from-indigo-300 to-purple-400'>Missbed</div>
       </h1>
