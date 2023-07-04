@@ -3,6 +3,7 @@ import { Sawarabi_Mincho } from 'next/font/google'
 import Head from 'next/head'
 import Div100vh from 'react-div-100vh'
 import GithubCorner from 'react-github-corner'
+import Image from 'next/image'
 
 const ReactEmbedGist = dynamic(() => import('react-embed-gist'), {
   ssr: false,
@@ -25,11 +26,14 @@ export default function Home() {
 
       <main className='w-1/2 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 280 }}>
         <ReactEmbedGist titleClass='hidden' loadingClass='hidden' gist='NarixHine/6451fe18c4924fa55c3102abd8083cdc'></ReactEmbedGist>
-        <hr className='my-5 border-slate-800'></hr>
-        <iframe src='/note/misskey.dev/9gqf1lkza2' width={'100%'} height={660} className='mx-auto'></iframe>
+        <hr className='my-5 border-purple-400'></hr>
+        <iframe src='/note/misskey.cloud/9grjhkquhi' width={'100%'} height={350} className='mx-auto'></iframe>
         <br></br>
-        <iframe src='/timeline/misskey.cloud/9cxdmiu7h5' width={'100%'} height={800} className='mx-auto'></iframe>
+        <iframe src='/timeline/misskey.cloud/9cxdmiu7h5' width={'100%'} height={1000} className='mx-auto'></iframe>
       </main>
+      <br></br>
+
+      <p className='text-center text-slate-700 align-middle'>— Made by <a href='https://misskey.dev/@NH' className='italic'>Narix Hine <Image src='/nh.png' className='align-middle mx-1' quality={100} width={30} height={30} alt='Narix Hine'></Image></a> —</p>
     </Div100vh>
   )
 }

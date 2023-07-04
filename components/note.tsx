@@ -57,7 +57,7 @@ const Cards = ({ ogs }: { ogs: OgObject[] }) => {
                     <a key={requestUrl} href={requestUrl} target='_blank' rel='noreferrer'>
                         <div className='flex h-20 my-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20'>
                             <div className='relative w-20 h-20 shrink-0 rounded-l overflow-clip'>
-                                <Image src={(ogImage as ImageObject[])[0].url} className='object-cover' width={80} height={80} alt={ogTitle as string}></Image>
+                                <Image quality={100} src={(ogImage as ImageObject[])[0].url} className='object-cover' width={80} height={80} alt={ogTitle as string}></Image>
                             </div>
                             <div className={`${mincho.className} w-full p-4 border-slate-300 border border-l-0 rounded-r overflow-y-clip whitespace-nowrap text-ellipsis overflow-x-hidden`}>
                                 {ogTitle}
@@ -78,7 +78,7 @@ const Text = ({ text, instance, ogs }: { text: string | null, instance: string, 
     <>
         <div className={`${mincho.className} break-words whitespace-pre-line`} dangerouslySetInnerHTML={{
             __html: Autolinker.link(text, {
-                className: 'text-link',
+                className: 'text-link font-mono',
                 mention: 'twitter',
                 hashtag: 'twitter',
                 replaceFn: (match) => {
@@ -89,6 +89,11 @@ const Text = ({ text, instance, ogs }: { text: string | null, instance: string, 
                             return tag.setAttr('href', `https://${instance}/${pattern}`)
                         case 'hashtag':
                             return tag.setAttr('href', `https://${instance}/tags/${pattern.replace('#', '')}`)
+                        case 'url':
+                            const text = match.getAnchorText()
+                            const slash = text.indexOf('/') < 0 ? text.length : text.indexOf('/')
+                            const [host, path] = [text.slice(0, slash), text.slice(slash + 1, text.length)]
+                            return tag.setInnerHTML(`<span class='font-bold'>${host}</span><span class='opacity-80 text-sm'>${slash === text.length ? '' : '/'}${path}</span>`)
                         default:
                             return tag
                     }
