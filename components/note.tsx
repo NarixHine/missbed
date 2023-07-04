@@ -4,15 +4,17 @@ import { useEffect, useState } from 'react'
 import ProgressiveImage from 'react-progressive-image-loading'
 import Autolinker from 'autolinker'
 import Image from 'next/image'
+import { ImageObject, OgObject } from 'open-graph-scraper/dist/lib/types'
 
 const yomogi = Yomogi({ weight: '400', subsets: ['latin'] })
 const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
 
 export interface NoteProps extends Note {
     instance: string
+    ogs: OgObject[]
 }
 
-export default function Note({ id, user, createdAt, text, files, cw, poll, instance }: NoteProps) {
+export default function Note({ id, user, createdAt, text, files, cw, poll, instance, ogs }: NoteProps) {
     const [show, setShow] = useState(!cw)
 
     return (
@@ -33,7 +35,8 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, insta
             {
                 show ?
                     (<>
-                        <Text text={text} instance={instance}></Text>
+                        <Text text={text} ogs={ogs} instance={instance}></Text>
+                        <Cards ogs={ogs}></Cards>
                         <Enquette poll={poll}></Enquette>
                         <Images files={files}></Images>
                     </>) : <></>
@@ -46,7 +49,32 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, insta
     )
 }
 
-const Text = ({ text, instance }: { text: string | null, instance: string }) => text ? (
+const Cards = ({ ogs }: { ogs: OgObject[] }) => {
+    return ogs.length > 0 ? (<>
+        {
+            ogs.map(({ ogImage, ogTitle, requestUrl, ogDescription }) => (
+                (
+                    <a key={requestUrl} href={requestUrl} target='_blank' rel='noreferrer'>
+                        <div className='flex h-20 w-full my-2'>
+                            <div className='relative w-20 h-20 shrink-0 rounded-l overflow-clip'>
+                                <Image src={(ogImage as ImageObject[])[0].url} className='object-cover' fill alt={ogTitle as string}></Image>
+                            </div>
+                            <div className={`${mincho.className} p-4 border-slate-300 border border-l-0 rounded-r overflow-y-clip whitespace-nowrap text-ellipsis overflow-x-hidden bg-gradient-to-r from-rose-100/20 to-teal-100/20`}>
+                                {ogTitle}
+                                <br></br>
+                                <span className='w-full text-slate-500 text-sm'>
+                                    {ogDescription ?? ''}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                )))
+        }
+        <br />
+    </>) : <></>
+}
+
+const Text = ({ text, instance, ogs }: { text: string | null, instance: string, ogs: OgObject[] }) => text ? (
     <>
         <div className={`${mincho.className} break-words whitespace-pre-line`} dangerouslySetInnerHTML={{
             __html: Autolinker.link(text, {
@@ -67,7 +95,7 @@ const Text = ({ text, instance }: { text: string | null, instance: string }) => 
                 }
             })
         }}></div>
-        <br></br>
+        <br className={ogs.length > 0 ? 'hidden' : ''}></br>
     </>
 ) : <></>
 
@@ -86,7 +114,7 @@ const Images = ({ files }: { files: DriveFile[] }) => {
                             <div style={{ opacity: 1 - opacities[index] }} className={`${mincho.className} ${1 - opacities[index] > 0 ? '' : 'hidden'} w-full p-1 text-center absolute top-1/2 -translate-y-1/2`}>
                                 <a className='text-lg'>NSFW</a>
                                 <br></br>
-                                <button className='text-slate-400 border-solid border-slate-400 border-2 px-1 text-xs' onClick={() => {
+                                <button className='text-slate-400 border-solid border-slate-400 border px-1 text-xs' onClick={() => {
                                     const fadeInInterval = setInterval(() => {
                                         setOpacities(opacities => Array.from(opacities, (opacity, i) => {
                                             const newOpacity = i === index ? opacity + 0.01 : opacity

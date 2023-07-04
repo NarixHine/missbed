@@ -1,12 +1,14 @@
-import { Note as NoteType } from 'misskey-js/built/entities'
 import Note from './note'
 import { useState } from 'react'
 import cli from '@/lib/misskey'
+import { Note as NoteType } from 'misskey-js/built/entities'
+import { OgObject } from 'open-graph-scraper/dist/lib/types'
 
-export default function Timeline({ notes, userId, instance, boardly = false }: {
+export default function Timeline({ notes, userId, instance, boardly = false, ogs }: {
     notes: NoteType[],
     userId: string,
     instance: string,
+    ogs: OgObject[][],
     boardly?: boolean
 }) {
     const [loadedNotes, setLoadedNotes] = useState(notes)
@@ -19,7 +21,8 @@ export default function Timeline({ notes, userId, instance, boardly = false }: {
             untilId: loadedNotes[loadedNotes.length - 1].id,
 
         })
-        setLoadedNotes(loadedNotes => loadedNotes.concat(loadingNotes))
+        const loadingNotesWithOg = loadingNotes.map(note => ({ ...note, instance, ogs }))
+        setLoadedNotes(loadedNotes => loadedNotes.concat(loadingNotesWithOg))
         if (loadingNotes.length < 10)
             setIsFinished(true)
         setIsLoading(false)
@@ -27,9 +30,9 @@ export default function Timeline({ notes, userId, instance, boardly = false }: {
     return (
         <div className={boardly ? 'grid items-center grid-cols-3 gap-5' : ''}>
             {
-                loadedNotes.map(note => (
+                loadedNotes.map((note, index) => (
                     <div key={note.id}>
-                        <Note {...note} instance={instance}></Note>
+                        <Note {...note} instance={instance} ogs={ogs[index]}></Note>
                         {boardly ? <></> : <div className='w-3 h-3 bg-stone-50 mx-auto'></div>}
                     </div>
                 ))

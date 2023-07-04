@@ -1,6 +1,7 @@
 import Note, { NoteProps } from '@/components/note'
 import Skeleton from '@/components/skeleton'
 import cli from '@/lib/misskey'
+import getOgs from '@/lib/og'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -24,7 +25,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     if (params) {
         const [instance, noteId] = params.slug as string[]
         const note = await cli(instance).request('notes/show', { noteId })
-        return { props: { ...note, instance }, revalidate: 10 }
+        return { props: { ...note, instance, ogs: await getOgs(note.text) }, revalidate: 10 }
     }
     return { notFound: true }
 }

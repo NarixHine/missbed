@@ -10,7 +10,7 @@ Missbed uses *Incremental Site Generation* with `Next.js`. **Fast. Flexible. Fre
 ![PageSpeed](https://github.com/NarixHine/missbed/assets/127665924/518e01f7-00b6-4e9c-9d91-d72543c6d20d)
 
 The following note components are supported:
-- Mentions, Hashtags & Links (OpenGraph support coming soon)
+- Mentions, Hashtags & Links (with OpenGraph support)
 - Images (including NSFW Warning)
 - Hide Content
 - Enquête
