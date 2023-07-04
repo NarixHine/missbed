@@ -19,7 +19,9 @@ export default function Home() {
       <GithubCorner href='https://github.com/NarixHine/missbed' bannerColor='pink' target='_blank' style={{ opacity: 0.7 }} />
 
       <h1 className='text-5xl text-center'>
-        <Image className='my-2' src={'/og.png'} quality={100} width={72} height={72} alt='Missbed Logo'></Image>
+        <div className='my-2 relative h-20'>
+          <Image className='absolute animate-fade left-1/2 -translate-x-1/2' src={'/og.png'} quality={100} width={80} height={80} alt='Missbed Logo'></Image>
+        </div>
         <div className='bg-clip-text font-extrabold text-transparent bg-gradient-to-r from-indigo-300 to-purple-400'>Missbed</div>
       </h1>
       <p className='text-center text-slate-500 italic'>Embedding solution for <a className='text-lime-600'>Misskey</a></p>
@@ -28,9 +30,9 @@ export default function Home() {
       <main className='w-1/2 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 280 }}>
         <ReactEmbedGist titleClass='hidden' loadingClass='hidden' gist='NarixHine/6451fe18c4924fa55c3102abd8083cdc'></ReactEmbedGist>
         <hr className='my-5 border-purple-400'></hr>
-        <iframe src='/note/misskey.cloud/9grjhkquhi' width={'100%'} height={350} className='mx-auto'></iframe>
+        <iframe src='/note/misskey.cloud/9grjhkquhi' width={'100%'} height={360}></iframe>
         <br></br>
-        <iframe src='/timeline/misskey.cloud/9cxdmiu7h5' width={'100%'} height={1000} className='mx-auto'></iframe>
+        <iframe src='/timeline/misskey.cloud/9cxdmiu7h5' width={'100%'} height={1000}></iframe>
       </main>
       <br></br>
 
