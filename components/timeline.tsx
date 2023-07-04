@@ -3,6 +3,7 @@ import { useState } from 'react'
 import cli from '@/lib/misskey'
 import { Note as NoteType } from 'misskey-js/built/entities'
 import { OgObject } from 'open-graph-scraper/dist/lib/types'
+import getOgs from '@/lib/og'
 
 export default function Timeline({ notes, userId, instance, boardly = false, ogs }: {
     notes: NoteType[],
@@ -11,28 +12,41 @@ export default function Timeline({ notes, userId, instance, boardly = false, ogs
     ogs: OgObject[][],
     boardly?: boolean
 }) {
-    const [loadedNotes, setLoadedNotes] = useState(notes)
+    const [loaded, setLoaded] = useState({ loadedNotes: notes, loadedOgs: ogs })
+    const { loadedNotes, loadedOgs } = loaded
+
     const [isLoading, setIsLoading] = useState(false)
     const [isFinished, setIsFinished] = useState(false)
+
     const loadNotes = async () => {
         setIsLoading(true)
+
         const loadingNotes = await cli(instance).request('users/notes', {
             userId,
             untilId: loadedNotes[loadedNotes.length - 1].id,
-
         })
-        const loadingNotesWithOg = loadingNotes.map(note => ({ ...note, instance, ogs }))
-        setLoadedNotes(loadedNotes => loadedNotes.concat(loadingNotesWithOg))
+        const loadingOgs = (await (await fetch('/api/og', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                texts: loadingNotes.map(note => note.text)
+            })
+        })).json()).ogs
+        setLoaded(({ loadedNotes, loadedOgs }) => ({ loadedNotes: loadedNotes.concat(loadingNotes), loadedOgs: loadedOgs.concat(loadingOgs) }))
+        
         if (loadingNotes.length < 10)
             setIsFinished(true)
         setIsLoading(false)
     }
+
     return (
         <div className={boardly ? 'grid items-center grid-cols-3 gap-5' : ''}>
             {
                 loadedNotes.map((note, index) => (
                     <div key={note.id}>
-                        <Note {...note} instance={instance} ogs={ogs[index]}></Note>
+                        <Note {...note} instance={instance} ogs={loadedOgs[index]}></Note>
                         {boardly ? <></> : <div className='w-3 h-3 bg-stone-50 mx-auto'></div>}
                     </div>
                 ))
