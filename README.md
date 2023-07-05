@@ -11,7 +11,17 @@ Missbed uses *Incremental Site Generation* with `Next.js`. **Fast. Flexible. Fre
 ![PageSpeed](https://github.com/NarixHine/missbed/assets/127665924/518e01f7-00b6-4e9c-9d91-d72543c6d20d)
 
 The following note components are supported:
-- Mentions, Hashtags & Links (with OpenGraph support & no CORS proxy needed)
+- MFM (the syntax used in Misskey notes, usernames, etc.)
+  - Mention
+  - Hashtag
+  - URL & Link (with OpenGraph support & no CORS proxy needed)
+  - Bold
+  - Quote
+  - Centre
+  - Small
+  - Italic
+  - Strike
+  - Code
 - Images (including NSFW Warning)
 - Hide Content
 - Enquête
@@ -34,6 +44,6 @@ You can read your own UID in `Settings - Other`.
 
 ### Deploy your own
 
-`missbed.narix.link` uses `@vercel/analytics` for analysis and no token for retrieving Misskey data. You can fork this repo, modify `pages/_app.tsx`, `lib/misskey.ts` as well as other related files, and deploy your modified version. Or simply click this button to deploy on Vercel directly.
+`missbed.narix.link` uses `@vercel/analytics` for analysis and no token for retrieving Misskey data. You can fork this repo, customise `pages/_app.tsx`, `lib/misskey.ts` as well as other related files, and deploy your modified version. Or simply click this button to deploy on Vercel directly.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FNarixHine%2Fmissbed)

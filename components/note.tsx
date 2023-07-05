@@ -2,9 +2,9 @@ import { DriveFile, Note } from 'misskey-js/built/entities'
 import { Yomogi, Sawarabi_Mincho } from 'next/font/google'
 import { useEffect, useState } from 'react'
 import ProgressiveImage from 'react-progressive-image-loading'
-import Autolinker from 'autolinker'
 import Image from 'next/image'
 import { ImageObject, OgObject } from 'open-graph-scraper/dist/lib/types'
+import MfmConverter from '@/lib/mfm'
 
 const yomogi = Yomogi({ weight: '400', subsets: ['latin'] })
 const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
@@ -16,7 +16,6 @@ export interface NoteProps extends Note {
 
 export default function Note({ id, user, createdAt, text, files, cw, poll, instance, ogs }: NoteProps) {
     const [show, setShow] = useState(!cw)
-
     return (
         <article className='bg-stone-50 w-full p-7 rounded'>
             <header className='flex gap-3'>
@@ -28,10 +27,12 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, insta
             </header>
             <br></br>
 
-            <div className={`${mincho.className} ${cw ? '' : 'hidden'}`}>
-                {cw} <button className='text-slate-400 ml-1 border-solid border-2 px-1' onClick={() => setShow(show => !show)}>{show ? 'Hide' : 'Show'}</button>
-                <br></br><br></br>
-            </div>
+            {
+                cw ? (<div className={mincho.className}>
+                    {new MfmConverter(cw, instance).convert()} <button className='text-slate-400 ml-1 border-solid border-2 px-1' onClick={() => setShow(show => !show)}>{show ? 'Hide' : 'Show'}</button>
+                    <br></br><br></br>
+                </div>) : <></>
+            }
             {
                 show ?
                     (<>
@@ -74,35 +75,18 @@ const Cards = ({ ogs }: { ogs: OgObject[] }) => {
     </>) : <></>
 }
 
-const Text = ({ text, instance, ogs }: { text: string | null, instance: string, ogs: OgObject[] }) => text ? (
-    <>
-        <div className={`${mincho.className} break-words whitespace-pre-line`} dangerouslySetInnerHTML={{
-            __html: Autolinker.link(text, {
-                className: 'text-link font-mono',
-                mention: 'twitter',
-                hashtag: 'twitter',
-                replaceFn: (match) => {
-                    const pattern = match.getMatchedText()
-                    const tag = match.buildTag()
-                    switch (match.type) {
-                        case 'mention':
-                            return tag.setAttr('href', `https://${instance}/${pattern}`)
-                        case 'hashtag':
-                            return tag.setAttr('href', `https://${instance}/tags/${pattern.replace('#', '')}`)
-                        case 'url':
-                            const text = match.getAnchorText()
-                            const slash = text.indexOf('/') < 0 ? text.length : text.indexOf('/')
-                            const [host, path] = [text.slice(0, slash), text.slice(slash + 1, text.length)]
-                            return tag.setInnerHTML(`<span class='font-bold'>${host}</span><span class='opacity-80 text-sm'>${slash === text.length ? '' : '/'}${path}</span>`)
-                        default:
-                            return tag
-                    }
-                }
-            })
-        }}></div>
-        <br className={ogs.length > 0 ? 'hidden' : ''}></br>
-    </>
-) : <></>
+const Text = ({ text, instance, ogs }: { text: string | null, instance: string, ogs: OgObject[] }) => {
+    if (text) {
+        const converter = new MfmConverter(text, instance)
+        return (<>
+            <div className={`${mincho.className} break-words whitespace-pre-line`}>{converter.convert()}</div>
+            <br className={ogs.length > 0 ? 'hidden' : ''}></br>
+        </>)
+    }
+    else {
+        return <></>
+    }
+}
 
 const Images = ({ files }: { files: DriveFile[] }) => {
     const [isMounted, setIsMounted] = useState(false)
@@ -137,8 +121,7 @@ const Images = ({ files }: { files: DriveFile[] }) => {
             }
         </div>
         <br></br>
-    </>
-    ) : <></>
+    </>) : <></>
 }
 
 const Enquette = ({ poll }: {
@@ -153,21 +136,19 @@ const Enquette = ({ poll }: {
     } | undefined
 }) => {
     const allVotes = poll ? poll.choices.reduce((a, b) => a + b.votes, 0) : 0
-    return poll ? (
-        <>
-            {
-                poll.choices.map(({ text, votes }) => (
-                    <div
-                        key={text}
-                        className={`${mincho.className} w-full border-lime-200 border-2 my-1 whitespace-nowrap rounded`}
-                    >
-                        <div style={{ width: `${votes / allVotes * 100}%` }} className='p-2 bg-lime-100 text-teal-800 text-sm rounded'>
-                            {text} <a className='text-xs border-l px-1 border-teal-600 text-teal-600'>{votes} {votes === 1 ? 'Vote' : 'Votes'}</a>
-                        </div>
+    return poll ? (<>
+        {
+            poll.choices.map(({ text, votes }) => (
+                <div
+                    key={text}
+                    className={`${mincho.className} w-full border-lime-200 border-2 my-1 whitespace-nowrap rounded`}
+                >
+                    <div style={{ width: `${votes / allVotes * 100}%` }} className='p-2 bg-lime-100 text-teal-800 text-sm rounded'>
+                        {text} <a className='text-xs border-l px-1 border-teal-600 text-teal-600'>{votes} {votes === 1 ? 'Vote' : 'Votes'}</a>
                     </div>
-                ))
-            }
-            <br></br>
-        </>
-    ) : <></>
+                </div>
+            ))
+        }
+        <br></br>
+    </>) : <></>
 }
