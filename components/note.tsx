@@ -46,7 +46,10 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
             }
 
             <footer className={`${yomogi.className} text-stone-500 text-sm`}>
-                <a className='underline' href={`https://${instance}/notes/${id}`} target='_blank' rel='noreferrer'>Noted</a> at {createdAt.replace('T', ' ').split('.')[0]}
+                {
+                    isRenote ? 'Noted' : <a className='underline' href={`https://${instance}/notes/${id}`} target='_blank' rel='noreferrer'>Noted</a>
+                }
+                at {createdAt.replace('T', ' ').split('.')[0]}
             </footer>
         </article>
     )
