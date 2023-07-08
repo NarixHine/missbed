@@ -22,6 +22,7 @@ The following note components are supported:
   - Italic
   - Strike
   - Code
+- Renote
 - Images (including NSFW Warning)
 - Hide Content
 - Enquête

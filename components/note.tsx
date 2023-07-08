@@ -11,13 +11,14 @@ const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
 
 export interface NoteProps extends Note {
     instance: string
-    ogs: OgObject[]
+    ogs?: OgObject[]
+    isRenote?: boolean
 }
 
-export default function Note({ id, user, createdAt, text, files, cw, poll, instance, ogs }: NoteProps) {
+export default function Note({ id, user, createdAt, text, files, cw, poll, renote, instance, ogs = [], isRenote }: NoteProps) {
     const [show, setShow] = useState(!cw)
     return (
-        <article className='bg-stone-50 w-full p-7 rounded'>
+        <article className={`bg-stone-50 w-full p-7 rounded ${isRenote ? 'shadow-lg' : ''}`}>
             <header className='flex gap-3'>
                 <Image width={56} height={56} src={user.avatarUrl} alt='Avatar' className='rounded-full'></Image>
                 <div className={`${yomogi.className} flex flex-col justify-center leading-tight`}>
@@ -36,7 +37,8 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, insta
             {
                 show ?
                     (<>
-                        <Text text={text} ogs={ogs} instance={instance}></Text>
+                        <Text text={text} ogs={ogs} instance={instance} renote={renote}></Text>
+                        <Renote renote={renote}></Renote>
                         <Cards ogs={ogs}></Cards>
                         <Enquette poll={poll}></Enquette>
                         <Images files={files}></Images>
@@ -49,6 +51,11 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, insta
         </article>
     )
 }
+
+const Renote = ({ renote }: { renote?: Note }) => renote ? (<>
+    <Note {...renote} ogs={[]} instance='' isRenote></Note>
+    <br></br>
+</>) : <></>
 
 const Cards = ({ ogs }: { ogs: OgObject[] }) => {
     return ogs.length > 0 ? (<>
@@ -75,12 +82,12 @@ const Cards = ({ ogs }: { ogs: OgObject[] }) => {
     </>) : <></>
 }
 
-const Text = ({ text, instance, ogs }: { text: string | null, instance: string, ogs: OgObject[] }) => {
+const Text = ({ text, instance, ogs, renote }: { text: string | null, instance: string, ogs: OgObject[], renote?: Note }) => {
     if (text) {
         const converter = new MfmConverter(text, instance)
         return (<>
             <div className={`${mincho.className} break-words whitespace-pre-line`}>{converter.convert()}</div>
-            <br className={ogs.length > 0 ? 'hidden' : ''}></br>
+            <br className={ogs.length > 0 || renote ? 'hidden' : ''}></br>
         </>)
     }
     else {
