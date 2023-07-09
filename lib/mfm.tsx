@@ -37,8 +37,8 @@ export default class MfmConverter {
                 const [protocol, empty, host, ...paths] = url.split('/')
                 return (<a href={url} target='_blank' rel='noreferrer' className='text-link font-mono'>
                     <span className='opacity-60 text-sm'>{`${protocol}//`}</span>
-                    <span className='font-bold'>{`${host}/`}</span>
-                    <span className='opacity-80 text-sm'>{paths.join('/')}</span>
+                    <span className='font-bold'>{host}</span>
+                    <span className='opacity-80 text-sm'>/{paths.join('/')}</span>
                 </a>)
             case 'hashtag':
                 return <a className='text-link' href={`https://${this.instance}/tags/${node.props.hashtag}`} target='_blank' rel='noreferrer'>#{node.props.hashtag}</a>

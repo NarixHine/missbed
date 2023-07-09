@@ -27,7 +27,7 @@ export default function Home() {
       <p className='text-center text-slate-500 italic'>Embedding solution for <a className='text-lime-600'>Misskey</a></p>
       <br></br>
 
-      <main className='w-1/2 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 280 }}>
+      <main className='w-2/3 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 280 }}>
         <ReactEmbedGist titleClass='hidden' loadingClass='hidden' gist='NarixHine/6451fe18c4924fa55c3102abd8083cdc'></ReactEmbedGist>
         <hr className='my-5 border-purple-400'></hr>
         <iframe src='/note/misskey.cloud/9grjhkquhi' width={'100%'} height={360}></iframe>

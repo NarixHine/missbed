@@ -18,7 +18,7 @@ export interface NoteProps extends Note {
 export default function Note({ id, user, createdAt, text, files, cw, poll, renote, instance, ogs = [], isRenote }: NoteProps) {
     const [show, setShow] = useState(!cw)
     return (
-        <article className={`bg-stone-50 w-full p-7 rounded ${isRenote ? 'shadow-lg' : ''}`}>
+        <article className={`bg-stone-50 w-full p-7 rounded`} style={{ boxShadow: isRenote ? 'rgba(50, 50, 93, 0.25) 0px 10px 20px -4px, rgba(0, 0, 0, 0.3) 0px 6px 10px -5px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset' : '' }}>
             <header className='flex gap-3'>
                 <Image width={56} height={56} src={user.avatarUrl} alt='Avatar' className='rounded-full'></Image>
                 <div className={`${yomogi.className} flex flex-col justify-center leading-tight`}>
@@ -37,7 +37,7 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
             {
                 show ?
                     (<>
-                        <Text text={text} ogs={ogs} instance={instance} renote={renote}></Text>
+                        <Text text={text} ogs={ogs} instance={instance}></Text>
                         <Renote renote={renote}></Renote>
                         <Cards ogs={ogs}></Cards>
                         <Enquette poll={poll}></Enquette>
@@ -49,7 +49,7 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
                 {
                     isRenote ? 'Noted' : <a className='underline' href={`https://${instance}/notes/${id}`} target='_blank' rel='noreferrer'>Noted</a>
                 }
-                &nbsp;at {createdAt.replace('T', ' ').split('.')[0]}
+                {' '} at {createdAt.replace('T', ' ').split('.')[0]}
             </footer>
         </article>
     )
@@ -85,12 +85,12 @@ const Cards = ({ ogs }: { ogs: OgObject[] }) => {
     </>) : <></>
 }
 
-const Text = ({ text, instance, ogs, renote }: { text: string | null, instance: string, ogs: OgObject[], renote?: Note }) => {
+const Text = ({ text, instance, ogs }: { text: string | null, instance: string, ogs: OgObject[] }) => {
     if (text) {
         const converter = new MfmConverter(text, instance)
         return (<>
             <div className={`${mincho.className} break-words whitespace-pre-line`}>{converter.convert()}</div>
-            <br className={ogs.length > 0 || renote ? 'hidden' : ''}></br>
+            <br className={ogs.length > 0 ? 'hidden' : ''}></br>
         </>)
     }
     else {
