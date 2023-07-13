@@ -17,12 +17,13 @@ export interface NoteProps extends Note {
 
 export default function Note({ id, user, createdAt, text, files, cw, poll, renote, instance, ogs = [], isRenote }: NoteProps) {
     const [show, setShow] = useState(!cw)
+    const converter = new MfmConverter(instance)
     return (
         <article className={`bg-stone-50 w-full p-7 rounded`} style={{ boxShadow: isRenote ? 'rgba(50, 50, 93, 0.25) 0px 10px 20px -4px, rgba(0, 0, 0, 0.3) 0px 6px 10px -5px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset' : '' }}>
             <header className='flex gap-3'>
                 <Image width={56} height={56} src={user.avatarUrl} alt='Avatar' className='rounded-full'></Image>
                 <div className={`${yomogi.className} flex flex-col justify-center leading-tight`}>
-                    <p className='text-stone-900 font-bold'>{user.name}</p>
+                    <p className='text-stone-900 font-bold'>{converter.convert(user.name)}</p>
                     <p className='text-stone-900'>{`@${user.username}`}</p>
                 </div>
             </header>
@@ -30,14 +31,14 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
 
             {
                 cw ? (<div className={mincho.className}>
-                    {new MfmConverter(cw, instance).convert()} <button className='text-slate-400 ml-1 border-solid border-2 px-1' onClick={() => setShow(show => !show)}>{show ? 'Hide' : 'Show'}</button>
+                    {converter.convert(cw)} <button className='text-slate-400 ml-1 border-solid border-2 px-1' onClick={() => setShow(show => !show)}>{show ? 'Hide' : 'Show'}</button>
                     <br></br><br></br>
                 </div>) : <></>
             }
             {
                 show ?
                     (<>
-                        <Text text={text} ogs={ogs} instance={instance}></Text>
+                        <Text text={text} ogs={ogs} converter={converter}></Text>
                         <Renote renote={renote}></Renote>
                         <Cards ogs={ogs}></Cards>
                         <Enquette poll={poll}></Enquette>
@@ -85,11 +86,10 @@ const Cards = ({ ogs }: { ogs: OgObject[] }) => {
     </>) : <></>
 }
 
-const Text = ({ text, instance, ogs }: { text: string | null, instance: string, ogs: OgObject[] }) => {
+const Text = ({ text, ogs, converter }: { text: string | null, ogs: OgObject[], converter: MfmConverter }) => {
     if (text) {
-        const converter = new MfmConverter(text, instance)
         return (<>
-            <div className={`${mincho.className} break-words whitespace-pre-line`}>{converter.convert()}</div>
+            <div className={`${mincho.className} break-words whitespace-pre-line`}>{converter.convert(text)}</div>
             <br className={ogs.length > 0 ? 'hidden' : ''}></br>
         </>)
     }

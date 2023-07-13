@@ -4,10 +4,8 @@ import { CopyBlock, github } from 'react-code-blocks'
 
 export default class MfmConverter {
     instance: string = 'misskey.io'
-    nodes: MfmNode[]
 
-    constructor(text: string, instance?: string) {
-        this.nodes = parse(text)
+    constructor(instance?: string) {
         if (instance)
             this.instance = instance
     }
@@ -74,7 +72,7 @@ export default class MfmConverter {
         }
     }
 
-    convert() {
-        return this.recur(this.nodes)
+    convert(text: string) {
+        return this.recur(parse(text))
     }
 }
