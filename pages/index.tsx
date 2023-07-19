@@ -36,7 +36,7 @@ export default function Home() {
       </main>
       <br></br>
 
-      <footer className='text-center text-slate-700 align-middle'>— Made by <a target='_blank' rel='noreferrer' href='https://misskey.dev/@NH' className='italic'>Narix Hine <Image src='/nh.png' className='align-middle mx-1' quality={100} width={22} height={25} alt='Narix Hine'></Image></a> —</footer>
+      <footer className='text-center text-slate-700 align-middle'>— Made by <a target='_blank' rel='noreferrer' href='https://github.com/NarixHine' className='italic'>Narix Hine <Image src='/nh.png' className='align-middle mx-1' quality={100} width={22} height={25} alt='Narix Hine'></Image></a> —</footer>
     </Div100vh>
   )
 }
