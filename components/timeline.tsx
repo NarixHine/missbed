@@ -15,7 +15,7 @@ export default function Timeline({ notes, userId, instance, boardly = false, ogs
     const { loadedNotes, loadedOgs } = loaded
 
     const [isLoading, setIsLoading] = useState(false)
-    const [isFinished, setIsFinished] = useState(false)
+    const [isFinished, setIsFinished] = useState(notes.length < 10 ? true : false)
 
     const loadNotes = async () => {
         setIsLoading(true)
@@ -34,7 +34,7 @@ export default function Timeline({ notes, userId, instance, boardly = false, ogs
             })
         })).json()).ogs
         setLoaded(({ loadedNotes, loadedOgs }) => ({ loadedNotes: loadedNotes.concat(loadingNotes), loadedOgs: loadedOgs.concat(loadingOgs) }))
-        
+
         if (loadingNotes.length < 10)
             setIsFinished(true)
         setIsLoading(false)
