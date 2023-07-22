@@ -42,7 +42,7 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
                         <Renote renote={renote}></Renote>
                         <Cards ogs={ogs}></Cards>
                         <Enquette poll={poll}></Enquette>
-                        <Images files={files}></Images>
+                        <Images imgs={files.filter(({ type }) => type.startsWith('image'))}></Images>
                     </>) : <></>
             }
 
@@ -98,17 +98,17 @@ const Text = ({ text, ogs, converter }: { text: string | null, ogs: OgObject[], 
     }
 }
 
-const Images = ({ files }: { files: DriveFile[] }) => {
+const Images = ({ imgs }: { imgs: DriveFile[] }) => {
     const [isMounted, setIsMounted] = useState(false)
     useEffect(() => setIsMounted(true), [])
-    const [opacities, setOpacities] = useState<number[]>(files.map(({ isSensitive }) => (isSensitive ? 0.1 : 1)))
+    const [opacities, setOpacities] = useState<number[]>(imgs.map(({ isSensitive }) => (isSensitive ? 0.1 : 1)))
 
-    return files.length > 0 ? (<>
+    return imgs.length > 0 ? (<>
         <div className={'grid grid-cols-2 gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20'} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
             {
-                isMounted ? files.map(({ id, thumbnailUrl, url, name }, index) => (
+                isMounted ? imgs.map(({ id, thumbnailUrl, url, name }, index) => (
                     <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
-                        <div className='overflow-clip aspect-square rounded relative'>
+                        <div className='overflow-clip aspect-video rounded relative'>
                             <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 5)}px)` }} />
                             <div style={{ opacity: 1 - opacities[index] }} className={`${mincho.className} ${1 - opacities[index] > 0 ? '' : 'hidden'} w-full p-1 text-center absolute top-1/2 -translate-y-1/2`}>
                                 <a className='text-lg'>NSFW</a>
