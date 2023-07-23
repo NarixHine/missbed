@@ -104,7 +104,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
     const [opacities, setOpacities] = useState<number[]>(imgs.map(({ isSensitive }) => (isSensitive ? 0.1 : 1)))
 
     return imgs.length > 0 ? (<>
-        <div className={`grid grid-cols-${Math.min(2, imgs.length)} gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20`} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
+        <div className={`grid ${imgs.length === 1 ? 'grid-cols-1' : 'grid-cols-2'} gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20`} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
             {
                 isMounted ? imgs.map(({ id, thumbnailUrl, url, name }, index) => (
                     <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
