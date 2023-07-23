@@ -19,7 +19,7 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
     const [show, setShow] = useState(!cw)
     const converter = new MfmConverter(instance)
     return (
-        <article className={`bg-stone-50 w-full p-7 rounded`} style={{ boxShadow: isRenote ? 'rgba(50, 50, 93, 0.25) 0px 10px 20px -4px, rgba(0, 0, 0, 0.3) 0px 6px 10px -5px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset' : '' }}>
+        <article className={'bg-stone-50 w-full p-7 rounded'} style={{ boxShadow: isRenote ? 'rgba(50, 50, 93, 0.25) 0px 10px 20px -4px, rgba(0, 0, 0, 0.3) 0px 6px 10px -5px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset' : '' }}>
             <header className='flex gap-3'>
                 <Image width={56} height={56} src={user.avatarUrl} alt='Avatar' className='rounded-full'></Image>
                 <div className={`${yomogi.className} flex flex-col justify-center leading-tight`}>
@@ -104,7 +104,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
     const [opacities, setOpacities] = useState<number[]>(imgs.map(({ isSensitive }) => (isSensitive ? 0.1 : 1)))
 
     return imgs.length > 0 ? (<>
-        <div className={'grid grid-cols-2 gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20'} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
+        <div className={`grid grid-cols-${Math.min(2, imgs.length)} gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20`} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
             {
                 isMounted ? imgs.map(({ id, thumbnailUrl, url, name }, index) => (
                     <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
