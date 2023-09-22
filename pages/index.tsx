@@ -33,7 +33,7 @@ export default function Home() {
           codeBlock
         />
         <hr className='my-5 border-purple-400'></hr>
-        <iframe src='/note/firefish.social/9jqn02z9zb8z72rm' width={'100%'} height={760}></iframe>
+        <iframe src='/note/firefish.social/9jqn02z9zb8z72rm' width={'100%'} height={700}></iframe>
         <br></br>
         <iframe src='/timeline/misskey.cloud/9cxdmiu7h5' width={'100%'} height={1000}></iframe>
       </div>

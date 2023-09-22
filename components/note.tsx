@@ -30,20 +30,19 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
             <br></br>
 
             {
-                cw ? (<div className={mincho.className}>
+                cw && (<div className={mincho.className}>
                     {converter.convert(cw)} <button className='text-slate-400 ml-1 border-solid border-2 px-1' onClick={() => setShow(show => !show)}>{show ? 'Hide' : 'Show'}</button>
                     <br></br><br></br>
-                </div>) : <></>
+                </div>)
             }
             {
-                show ?
-                    (<>
-                        <Text text={text} converter={converter}></Text>
-                        <Renote renote={renote}></Renote>
-                        <Cards ogs={ogs}></Cards>
-                        <Enquette poll={poll}></Enquette>
-                        <Images imgs={files.filter(({ type }) => type.startsWith('image'))}></Images>
-                    </>) : <></>
+                show && (<>
+                    <Text text={text} converter={converter}></Text>
+                    <Renote renote={renote}></Renote>
+                    <Cards ogs={ogs}></Cards>
+                    <Enquette poll={poll}></Enquette>
+                    <Images imgs={files.filter(({ type }) => type.startsWith('image'))}></Images>
+                </>)
             }
 
             <footer className={`${yomogi.className} text-stone-500 dark:text-slate-300 text-sm`}>
@@ -59,10 +58,10 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
     )
 }
 
-const Renote = ({ renote }: { renote?: Note }) => renote ? (<>
+const Renote = ({ renote }: { renote?: Note }) => renote && (<>
     <Note {...renote} ogs={[]} instance='' isRenote></Note>
     <br></br>
-</>) : <></>
+</>)
 
 const Cards = ({ ogs }: { ogs: OgObject[] }) => {
     return ogs.length > 0 && (<>
@@ -104,7 +103,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
     return imgs.length > 0 && (<>
         <div className={`grid ${imgs.length === 1 ? 'grid-cols-1' : 'grid-cols-2'} gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20`} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
             {
-                isMounted ? imgs.map(({ id, thumbnailUrl, url, name }, index) => (
+                isMounted && imgs.map(({ id, thumbnailUrl, url, name }, index) => (
                     <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
                         <div className='overflow-clip aspect-video rounded relative'>
                             <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 5)}px)` }} />
@@ -125,7 +124,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
                             </div>
                         </div>
                     )}></ProgressiveImage>
-                )) : <></>
+                ))
             }
         </div>
         <br></br>
