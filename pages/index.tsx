@@ -1,12 +1,9 @@
-import dynamic from 'next/dynamic'
 import { Sawarabi_Mincho } from 'next/font/google'
 import Head from 'next/head'
 import GithubCorner from 'react-github-corner'
 import Image from 'next/image'
+import { CopyBlock, ocean } from 'react-code-blocks'
 
-const ReactEmbedGist = dynamic(() => import('react-embed-gist'), {
-  ssr: false,
-})
 const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
 
 export default function Home() {
@@ -27,7 +24,13 @@ export default function Home() {
       <br></br>
 
       <div className='w-2/3 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 280 }}>
-        <ReactEmbedGist titleClass='hidden' loadingClass='hidden' gist='NarixHine/6451fe18c4924fa55c3102abd8083cdc'></ReactEmbedGist>
+        <CopyBlock
+          // @ts-ignore
+          text={`<iframe src='https://missbed.narix.link/timeline/{instance}/{user_id}' />\n<iframe src='https://missbed.narix.link/timeboard/{instance}/{user_id}' />\n<iframe src='https://missbed.narix.link/note/{instance}/{note_id}' />`}
+          language={'tsx'}
+          showLineNumbers={true}
+          theme={{ ...ocean }}
+        />
         <hr className='my-5 border-purple-400'></hr>
         <iframe src='/note/misskey.cloud/9grjhkquhi' width={'100%'} height={360}></iframe>
         <br></br>

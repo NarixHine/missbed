@@ -23,7 +23,7 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
             <header className='flex gap-3'>
                 <Image width={56} height={56} src={user.avatarUrl} alt='Avatar' className='rounded-full'></Image>
                 <div className={`${yomogi.className} flex flex-col justify-center leading-tight`}>
-                    <p className='text-stone-900 font-bold'>{converter.convert(user.name)}</p>
+                    <a className='text-stone-900 font-bold hover:underline block' href={`https://${instance}/@${user.username}`} target='_blank' rel='noreferrer'>{converter.convert(user.name)}</a>
                     <p className='text-stone-900'>{`@${user.username}`}</p>
                 </div>
             </header>

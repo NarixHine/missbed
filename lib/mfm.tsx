@@ -43,8 +43,8 @@ export default class MfmConverter {
             case 'text':
                 return <>{node.props.text}</>
             case 'blockCode':
-                // @ts-ignore
                 return <CopyBlock
+                    // @ts-ignore
                     text={node.props.code}
                     language={node.props.lang ?? 'text'}
                     showLineNumbers={true}
