@@ -106,7 +106,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
                 isMounted && imgs.map(({ id, thumbnailUrl, url, name }, index) => (
                     <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
                         <div className='overflow-clip aspect-video rounded relative'>
-                            <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 5)}px)` }} />
+                            <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 10)}px)` }} />
                             <div style={{ opacity: 1 - opacities[index] }} className={`${mincho.className} ${1 - opacities[index] > 0 ? '' : 'hidden'} w-full p-1 text-center absolute top-1/2 -translate-y-1/2`}>
                                 <a className='text-lg'>NSFW</a>
                                 <br></br>
