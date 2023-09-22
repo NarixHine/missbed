@@ -25,7 +25,9 @@ The following note components are supported:
 - Renote
 - Images (including NSFW Warning)
 - Hide Content
-- Enquête
+- Poll
+
+Dark mode has now been supported. The system preference of the user is followed.
 
 ## Usage
 
@@ -49,6 +51,7 @@ You can read your own UID in `Settings - Other`.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FNarixHine%2Fmissbed)
 
-## Example
+## Use cases & examples
 
-- [Yukimori](https://yukimori.narix.link/)
+- [Yukimori (bot homepage)](https://yukimori.narix.link/)
+- [Leaving.Ink (landing page)](https://leaving.ink/)
