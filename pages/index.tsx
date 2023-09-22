@@ -30,6 +30,7 @@ export default function Home() {
           language={'tsx'}
           showLineNumbers={true}
           theme={{ ...ocean }}
+          codeBlock
         />
         <hr className='my-5 border-purple-400'></hr>
         <iframe src='/note/misskey.cloud/9grjhkquhi' width={'100%'} height={360}></iframe>

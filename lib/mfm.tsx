@@ -49,7 +49,6 @@ export default class MfmConverter {
                     language={node.props.lang ?? 'text'}
                     showLineNumbers={true}
                     theme={{ ...github, mode: 'dark' }}
-                    codeBlock
                 />
             case 'inlineCode':
                 return <code>{node.props.code}</code>
