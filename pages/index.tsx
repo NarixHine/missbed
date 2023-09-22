@@ -8,7 +8,7 @@ const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <main className={`${mincho.className} bg-gradient-to-tr from-indigo-200 via-red-200 to-yellow-100 overflow-y-auto p-8`}>
+    <main className={`${mincho.className} w-full bg-gradient-to-tr from-indigo-200 via-red-200 to-yellow-100 overflow-y-auto p-8`}>
       <Head>
         <meta name='description' content={'Embedding solution for Misskey. Homepage of Missbed.'} />
       </Head>
@@ -26,14 +26,14 @@ export default function Home() {
       <div className='w-2/3 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 280 }}>
         <CopyBlock
           // @ts-ignore
-          text={`<iframe src='https://missbed.narix.link/timeline/{instance}/{user_id}' />\n<iframe src='https://missbed.narix.link/timeboard/{instance}/{user_id}' />\n<iframe src='https://missbed.narix.link/note/{instance}/{note_id}' />`}
+          text={'<iframe src="https://missbed.narix.link/timeline/{instance}/{user_id}" />\n<iframe src="https://missbed.narix.link/timeboard/{instance}/{user_id}" />\n<iframe src="https://missbed.narix.link/note/{instance}/{note_id}" />'}
           language={'tsx'}
           showLineNumbers={true}
           theme={{ ...ocean }}
           codeBlock
         />
         <hr className='my-5 border-purple-400'></hr>
-        <iframe src='/note/misskey.cloud/9grjhkquhi' width={'100%'} height={360}></iframe>
+        <iframe src='/note/firefish.social/9jqn02z9zb8z72rm' width={'100%'} height={760}></iframe>
         <br></br>
         <iframe src='/timeline/misskey.cloud/9cxdmiu7h5' width={'100%'} height={1000}></iframe>
       </div>

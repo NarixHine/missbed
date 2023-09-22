@@ -19,12 +19,12 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
     const [show, setShow] = useState(!cw)
     const converter = new MfmConverter(instance)
     return (
-        <article className={'bg-stone-50 w-full p-7 rounded'} style={{ boxShadow: isRenote ? 'rgba(50, 50, 93, 0.25) 0px 10px 20px -4px, rgba(0, 0, 0, 0.3) 0px 6px 10px -5px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset' : '' }}>
+        <article className={'bg-stone-50 dark:bg-slate-900 w-full p-7 rounded'} style={{ boxShadow: isRenote ? 'rgba(50, 50, 93, 0.25) 0px 10px 20px -4px, rgba(0, 0, 0, 0.3) 0px 6px 10px -5px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset' : '' }}>
             <header className='flex gap-3'>
                 <Image width={56} height={56} src={user.avatarUrl} alt='Avatar' className='rounded-full'></Image>
                 <div className={`${yomogi.className} flex flex-col justify-center leading-tight`}>
-                    <a className='text-stone-900 font-bold hover:underline block' href={`https://${instance}/@${user.username}`} target='_blank' rel='noreferrer'>{converter.convert(user.name)}</a>
-                    <p className='text-stone-900'>{`@${user.username}`}</p>
+                    <a className='text-stone-900 dark:text-stone-50 font-bold hover:underline block' href={`https://${instance}/@${user.username}`} target='_blank' rel='noreferrer'>{converter.convert(user.name)}</a>
+                    <p className='text-stone-900 dark:text-stone-50'>{`@${user.username}`}</p>
                 </div>
             </header>
             <br></br>
@@ -38,7 +38,7 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
             {
                 show ?
                     (<>
-                        <Text text={text} ogs={ogs} converter={converter}></Text>
+                        <Text text={text} converter={converter}></Text>
                         <Renote renote={renote}></Renote>
                         <Cards ogs={ogs}></Cards>
                         <Enquette poll={poll}></Enquette>
@@ -46,11 +46,14 @@ export default function Note({ id, user, createdAt, text, files, cw, poll, renot
                     </>) : <></>
             }
 
-            <footer className={`${yomogi.className} text-stone-500 text-sm`}>
+            <footer className={`${yomogi.className} text-stone-500 dark:text-slate-300 text-sm`}>
                 {
-                    isRenote ? 'Noted' : <a className='underline' href={`https://${instance}/notes/${id}`} target='_blank' rel='noreferrer'>Noted</a>
+                    isRenote ? 'Noted' : <>
+                        <a className='underline' href={`https://${instance}/notes/${id}`} target='_blank' rel='noreferrer'>Noted</a>
+                        {' '} on <a className='underline' href={`https://${instance}/`} target='_blank' rel='noreferrer'>{instance}</a>
+                    </>
                 }
-                {' '} on <a className='underline' href={`https://${instance}/`} target='_blank' rel='noreferrer'>{instance}</a> at {createdAt.replace('T', ' ').split('.')[0]}
+                {' '} at {createdAt.replace('T', ' ').split('.')[0]}
             </footer>
         </article>
     )
@@ -62,7 +65,7 @@ const Renote = ({ renote }: { renote?: Note }) => renote ? (<>
 </>) : <></>
 
 const Cards = ({ ogs }: { ogs: OgObject[] }) => {
-    return ogs.length > 0 ? (<>
+    return ogs.length > 0 && (<>
         {
             ogs.map(({ ogImage, ogTitle, requestUrl, ogDescription }) => (
                 (
@@ -71,10 +74,10 @@ const Cards = ({ ogs }: { ogs: OgObject[] }) => {
                             <div className='relative w-20 h-20 shrink-0 rounded-l overflow-clip'>
                                 <Image quality={100} src={(ogImage as ImageObject[])[0].url} className='object-cover' width={80} height={80} alt={ogTitle as string}></Image>
                             </div>
-                            <div className={`${mincho.className} w-full p-4 border-slate-300 border border-l-0 rounded-r overflow-y-clip whitespace-nowrap text-ellipsis overflow-x-hidden`}>
+                            <div className={`${mincho.className} dark:text-stone-100 w-full p-4 border-slate-300 border border-l-0 rounded-r overflow-y-clip whitespace-nowrap text-ellipsis overflow-x-hidden`}>
                                 {ogTitle}
                                 <br></br>
-                                <span className='text-slate-500 text-sm'>
+                                <span className='text-slate-500 dark:text-stone-300 text-sm'>
                                     {ogDescription ?? ''}
                                 </span>
                             </div>
@@ -83,19 +86,14 @@ const Cards = ({ ogs }: { ogs: OgObject[] }) => {
                 )))
         }
         <br />
-    </>) : <></>
+    </>)
 }
 
-const Text = ({ text, ogs, converter }: { text: string | null, ogs: OgObject[], converter: MfmConverter }) => {
-    if (text) {
-        return (<>
-            <div className={`${mincho.className} break-words whitespace-pre-line`}>{converter.convert(text)}</div>
-            <br className={ogs.length > 0 ? 'hidden' : ''}></br>
-        </>)
-    }
-    else {
-        return <></>
-    }
+const Text = ({ text, converter }: { text: string | null, converter: MfmConverter }) => {
+    return text && (<>
+        <div className={`${mincho.className} dark:text-slate-200 whitespace-pre-line`}>{converter.convert(text)}</div>
+        <br></br>
+    </>)
 }
 
 const Images = ({ imgs }: { imgs: DriveFile[] }) => {
@@ -103,7 +101,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
     useEffect(() => setIsMounted(true), [])
     const [opacities, setOpacities] = useState<number[]>(imgs.map(({ isSensitive }) => (isSensitive ? 0.1 : 1)))
 
-    return imgs.length > 0 ? (<>
+    return imgs.length > 0 && (<>
         <div className={`grid ${imgs.length === 1 ? 'grid-cols-1' : 'grid-cols-2'} gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20`} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
             {
                 isMounted ? imgs.map(({ id, thumbnailUrl, url, name }, index) => (
@@ -131,7 +129,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
             }
         </div>
         <br></br>
-    </>) : <></>
+    </>)
 }
 
 const Enquette = ({ poll }: {
@@ -146,7 +144,7 @@ const Enquette = ({ poll }: {
     } | undefined
 }) => {
     const allVotes = poll ? poll.choices.reduce((a, b) => a + b.votes, 0) : 0
-    return poll ? (<>
+    return poll && (<>
         {
             poll.choices.map(({ text, votes }) => (
                 <div
@@ -160,5 +158,5 @@ const Enquette = ({ poll }: {
             ))
         }
         <br></br>
-    </>) : <></>
+    </>)
 }
