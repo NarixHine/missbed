@@ -90,7 +90,7 @@ const Cards = ({ ogs }: { ogs: OgObject[] }) => {
 
 const Text = ({ text, converter }: { text: string | null, converter: MfmConverter }) => {
     return text && (<>
-        <div className={`${mincho.className} dark:text-slate-200 whitespace-pre-line`}>{converter.convert(text)}</div>
+        <div className={`${mincho.className} dark:text-slate-200 break-words whitespace-pre-line`}>{converter.convert(text)}</div>
         <br></br>
     </>)
 }
