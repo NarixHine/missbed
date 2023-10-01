@@ -106,7 +106,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
         <div className={`grid ${imgs.length === 1 ? 'grid-cols-1' : 'grid-cols-2'} gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20`} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
             {
                 imgs.map(({ id, thumbnailUrl, url, name }, index) => (
-                    mounted ? <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
+                    mounted && <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
                         <div className='overflow-clip aspect-video rounded relative'>
                             <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 10)}px)` }} />
                             <div style={{ opacity: 1 - opacities[index] }} className={`${mincho.className} ${1 - opacities[index] > 0 ? '' : 'hidden'} w-full p-1 text-center absolute top-1/2 -translate-y-1/2`}>
@@ -125,7 +125,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
                                 }}>Click to View</button>
                             </div>
                         </div>
-                    )}></ProgressiveImage> : <div className='w-full' key={id} />
+                    )}></ProgressiveImage>
                 ))
             }
         </div>
