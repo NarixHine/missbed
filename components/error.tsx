@@ -8,19 +8,19 @@ export default function ErrorPanel({ status }: {
     status?: string
 }) {
     return (
-        <article className='bg-stone-50 w-full p-7 rounded'>
+        <article className='w-full p-7 rounded bg-stone-50 dark:bg-slate-900'>
             <header className='flex gap-3'>
                 <Image width={56} height={56} src='/avatar.jpg' alt='Avatar' className='rounded-full'></Image>
                 <div className={`${yomogi.className} flex flex-col justify-center leading-tight`}>
-                    <p className='text-stone-900 font-bold'>{'Narix Hine'}</p>
-                    <p className='text-stone-900'>{'@NH'}</p>
+                    <p className='text-stone-900 dark:text-stone-50 font-bold'>{'Narix Hine'}</p>
+                    <p className='text-stone-900 dark:text-stone-50'>{'@NH'}</p>
                 </div>
             </header>
             <br></br>
 
             <div className={`${mincho.className} break-words whitespace-pre-line`}>
                 <p className='text-red-500'>ERROR! {status}</p>
-                <p>You are viewing the error page of Missbed, an embedding solution website for Misskey. The error is probably caused by the possibility that the content you are trying to access is deleted or private.</p>
+                <p className='dark:text-slate-200 '>You are viewing the error page of Missbed, an embedding solution website for Misskey. The error is probably caused by the possibility that the content you are trying to access is deleted or private.</p>
             </div>
             <br></br>
             <footer className={`${yomogi.className} text-stone-500 text-sm`}>

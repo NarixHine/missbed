@@ -2,7 +2,7 @@
 
 import { DriveFile, Note } from 'misskey-js/built/entities'
 import { Yomogi, Sawarabi_Mincho } from 'next/font/google'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProgressiveImage from 'react-progressive-image-loading'
 import Image from 'next/image'
 import { ImageObject, OgObject } from 'open-graph-scraper/dist/lib/types'
@@ -98,12 +98,15 @@ const Text = ({ text, converter }: { text: string | null, converter: MfmConverte
 }
 
 const Images = ({ imgs }: { imgs: DriveFile[] }) => {
+    const [mounted, setMounted] = useState(false)
+    useEffect(() => { setMounted(true) }, [])
     const [opacities, setOpacities] = useState<number[]>(imgs.map(({ isSensitive }) => (isSensitive ? 0.1 : 1)))
+
     return imgs.length > 0 && (<>
         <div className={`grid ${imgs.length === 1 ? 'grid-cols-1' : 'grid-cols-2'} gap-2 p-2 bg-gradient-to-r from-rose-100/20 to-teal-100/20`} style={{ boxShadow: 'rgba(3, 102, 214, 0.2) 0px 0px 0px 3px' }}>
             {
                 imgs.map(({ id, thumbnailUrl, url, name }, index) => (
-                    <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
+                    mounted ? <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
                         <div className='overflow-clip aspect-video rounded relative'>
                             <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 10)}px)` }} />
                             <div style={{ opacity: 1 - opacities[index] }} className={`${mincho.className} ${1 - opacities[index] > 0 ? '' : 'hidden'} w-full p-1 text-center absolute top-1/2 -translate-y-1/2`}>
@@ -122,7 +125,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
                                 }}>Click to View</button>
                             </div>
                         </div>
-                    )}></ProgressiveImage>
+                    )}></ProgressiveImage> : <div className='w-full' key={id} />
                 ))
             }
         </div>
