@@ -1,12 +1,14 @@
-import Note from './note'
+'use client'
+
+import NoteDisplayer from '../note/displayer'
 import { useState } from 'react'
-import cli from '@/lib/misskey'
+import { fetchUserNotes } from '@/lib/misskey'
 import { Note as NoteType } from 'misskey-js/built/entities'
 import { OgObject } from 'open-graph-scraper/dist/lib/types'
 
-export default function Timeline({ notes, userId, instance, boardly = false, ogs }: {
+export default function TimelineDisplayer({ notes, id, instance, boardly = false, ogs }: {
     notes: NoteType[],
-    userId: string,
+    id: string,
     instance: string,
     ogs: OgObject[][],
     boardly?: boolean
@@ -20,10 +22,7 @@ export default function Timeline({ notes, userId, instance, boardly = false, ogs
     const loadNotes = async () => {
         setIsLoading(true)
 
-        const loadingNotes = await cli(instance).request('users/notes', {
-            userId,
-            untilId: loadedNotes[loadedNotes.length - 1].id,
-        })
+        const loadingNotes = await fetchUserNotes(instance, id, loadedNotes[loadedNotes.length - 1].id)
         const loadingOgs = (await (await fetch('/api/og', {
             method: 'POST',
             headers: {
@@ -45,7 +44,7 @@ export default function Timeline({ notes, userId, instance, boardly = false, ogs
             {
                 loadedNotes.map((note, index) => (
                     <div key={note.id}>
-                        <Note {...note} instance={instance} ogs={loadedOgs[index]}></Note>
+                        <NoteDisplayer {...note} instance={instance} ogs={loadedOgs[index]}></NoteDisplayer>
                         {!boardly && <div className='w-3 h-3 bg-stone-50 dark:bg-slate-900 mx-auto'></div>}
                     </div>
                 ))
