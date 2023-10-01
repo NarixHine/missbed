@@ -1,8 +1,9 @@
+import GithubCorner from '@/components/github'
+import CopyBlock, { ocean } from '@/components/codeblock'
 import { Sawarabi_Mincho } from 'next/font/google'
 import Head from 'next/head'
-import GithubCorner from 'react-github-corner'
 import Image from 'next/image'
-import { CopyBlock, ocean } from 'react-code-blocks'
+import Logo from '@/app/opengraph-image.png'
 
 const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
 
@@ -16,7 +17,7 @@ export default function Home() {
 
       <h1 className='text-5xl text-center'>
         <div className='my-2 relative h-20'>
-          <Image priority={true} className='absolute animate-fade left-1/2 -translate-x-1/2' src={'/og.png'} quality={100} width={80} height={80} alt='Missbed Logo'></Image>
+          <Image priority={true} className='absolute animate-fade left-1/2 -translate-x-1/2' src={Logo} quality={100} width={80} height={80} alt='Missbed Logo'></Image>
         </div>
         <div className='bg-clip-text font-extrabold text-transparent bg-gradient-to-r from-indigo-300 to-purple-400'>Missbed</div>
       </h1>

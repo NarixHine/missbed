@@ -6,7 +6,7 @@
 
 ## Features
 
-Missbed uses *Incremental Site Generation* with `Next.js`. **Fast. Flexible. Free to deploy your own.**
+Missbed now uses Next.js `/app` router. **Fast. Flexible. Free to deploy your own.**
 
 ![PageSpeed](https://github.com/NarixHine/missbed/assets/127665924/518e01f7-00b6-4e9c-9d91-d72543c6d20d)
 
