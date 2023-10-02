@@ -9,7 +9,7 @@ const mincho = Sawarabi_Mincho({ weight: '400', subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <main className={`${mincho.className} w-full bg-gradient-to-tr from-indigo-200 via-red-200 to-yellow-100 overflow-y-auto p-8`}>
+    <main className={`${mincho.className} w-full bg-gradient-to-tr from-indigo-200 via-red-200 to-yellow-100 dark:from-blue-700 dark:via-blue-800 dark:to-gray-900 overflow-y-auto p-8`}>
       <Head>
         <meta name='description' content={'Embedding solution for Misskey. Homepage of Missbed.'} />
       </Head>
@@ -36,7 +36,7 @@ export default function Home() {
         <hr className='my-5 border-purple-400'></hr>
         <iframe src='/note/firefish.social/9jqn02z9zb8z72rm' width={'100%'} height={700}></iframe>
         <br></br>
-        <iframe src='/timeline/misskey.cloud/9cxdmiu7h5' width={'100%'} height={1000}></iframe>
+        <iframe src='/timeline/firefish.social/9cxdmiu7h5' width={'100%'} height={1000}></iframe>
       </div>
       <br></br>
 
