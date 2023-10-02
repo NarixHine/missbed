@@ -21,7 +21,7 @@ export default function Home() {
         </div>
         <div className='bg-clip-text font-extrabold text-transparent bg-gradient-to-r from-indigo-300 to-purple-400'>Missbed</div>
       </h1>
-      <p className='text-center text-slate-500 italic'>Embedding solution for <a className='text-lime-600'>Misskey</a></p>
+      <p className='text-center text-slate-500 dark:text-slate-200 italic'>Embedding solution for <a className='text-lime-600'>Misskey</a></p>
       <br></br>
 
       <div className='w-2/3 bg-slate-200/60 mx-auto rounded-lg opacity-90 p-5 overflow-x-hidden' style={{ minWidth: 280 }}>
@@ -39,8 +39,6 @@ export default function Home() {
         <iframe src='/timeline/firefish.social/9jqk8atccfg7sk8x' width={'100%'} height={1000}></iframe>
       </div>
       <br></br>
-
-      <footer className='text-center text-slate-700 align-middle'>— Made by <a target='_blank' rel='noreferrer' href='https://github.com/NarixHine' className='italic'>Narix Hine <Image src='/nh.png' className='align-middle mx-1' quality={100} width={22} height={25} alt='Narix Hine'></Image></a> —</footer>
     </main>
   )
 }
