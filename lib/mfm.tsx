@@ -1,13 +1,15 @@
 import { MfmNode, toString, parse } from 'mfm-js'
+import Image from 'next/image'
 import { ReactNode } from 'react'
 import { CopyBlock, github } from 'react-code-blocks'
 
 export default class MfmConverter {
     instance: string = 'misskey.io'
+    emojis: { name: string, url: string }[] = []
 
-    constructor(instance?: string) {
-        if (instance)
-            this.instance = instance
+    constructor(instance: string, emojis: { name: string, url: string }[]) {
+        this.instance = instance
+        this.emojis = emojis
     }
 
     toReact(node: MfmNode, children: ReactNode) {
@@ -53,6 +55,9 @@ export default class MfmConverter {
                 />
             case 'inlineCode':
                 return <code>{node.props.code}</code>
+            case 'emojiCode':
+                const src = this?.emojis?.find(emoji => emoji.name === node.props.name)?.url
+                return src ? <Image alt={node.props.name} src={src} width={20} height={20} className='align-middle mx-1'></Image> : <>{toString(node)}</>
 
             default:
                 return <>{toString(node)}</>

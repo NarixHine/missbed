@@ -17,11 +17,11 @@ export interface NoteProps extends Note {
     isRenote?: boolean
 }
 
-export default function NoteDisplayer({ id, user, createdAt, text, files, cw, poll, renote, instance, ogs = [], isRenote }: NoteProps) {
+export default function NoteDisplayer({ id, url, user, createdAt, text, files, cw, poll, renote, instance, ogs = [], isRenote, emojis }: NoteProps) {
     const [show, setShow] = useState(!cw)
-    const converter = new MfmConverter(instance)
+    const converter = new MfmConverter(instance, emojis)
     return (
-        <article className={'bg-stone-50 dark:bg-slate-900 w-full p-7 rounded'} style={{ boxShadow: isRenote ? 'rgba(50, 50, 93, 0.25) 0px 10px 20px -4px, rgba(0, 0, 0, 0.3) 0px 6px 10px -5px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset' : '' }}>
+        <article className={'bg-stone-50 dark:bg-slate-900 w-full p-7 rounded'} style={{ boxShadow: isRenote ? 'rgba(50, 50, 93, 0.3) 0px 10px 20px -4px, rgba(0, 0, 0, 0.4) 0px 6px 10px -5px, rgba(10, 37, 64, 0.5) 0px -2px 6px 0px inset' : '' }}>
             <header className='flex gap-3'>
                 <Image width={56} height={56} src={user.avatarUrl} alt='Avatar' className='rounded-full'></Image>
                 <div className={`${yomogi.className} flex flex-col justify-center leading-tight`}>
@@ -40,7 +40,7 @@ export default function NoteDisplayer({ id, user, createdAt, text, files, cw, po
             {
                 show && (<>
                     <Text text={text} converter={converter}></Text>
-                    <Renote renote={renote}></Renote>
+                    <Renote renote={renote} instance={instance}></Renote>
                     <Cards ogs={ogs}></Cards>
                     <Enquette poll={poll}></Enquette>
                     <Images imgs={files.filter(({ type }) => type.startsWith('image'))}></Images>
@@ -48,20 +48,16 @@ export default function NoteDisplayer({ id, user, createdAt, text, files, cw, po
             }
 
             <footer className={`${yomogi.className} text-stone-500 dark:text-slate-300 text-sm`}>
-                {
-                    isRenote ? 'Noted' : <>
-                        <a className='underline' href={`https://${instance}/notes/${id}`} target='_blank' rel='noreferrer'>Noted</a>
-                        {' '} on <a className='underline' href={`https://${instance}/`} target='_blank' rel='noreferrer'>{instance}</a>
-                    </>
-                }
+                <a className='underline' href={url ?? `https://${instance}/notes/${id}`} target='_blank' rel='noreferrer'>Noted</a>
+                {' '} on <a className='underline' href={`https://${instance}/`} target='_blank' rel='noreferrer'>{instance}</a>
                 {' '} at {createdAt.replace('T', ' ').split('.')[0]}
             </footer>
         </article>
     )
 }
 
-const Renote = ({ renote }: { renote?: Note }) => renote && (<>
-    <NoteDisplayer {...renote} ogs={[]} instance='' isRenote></NoteDisplayer>
+const Renote = ({ renote, instance }: { renote?: Note, instance: string }) => renote && (<>
+    <NoteDisplayer {...renote} ogs={[]} instance={renote.user.host ?? instance} isRenote></NoteDisplayer>
     <br></br>
 </>)
 
@@ -108,7 +104,7 @@ const Images = ({ imgs }: { imgs: DriveFile[] }) => {
                 imgs.map(({ id, thumbnailUrl, url, name }, index) => (
                     mounted && <ProgressiveImage key={id} preview={thumbnailUrl} src={url} render={(src, style) => (
                         <div className='overflow-clip aspect-video rounded relative'>
-                            <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 30)}px)` }} />
+                            <Image fill src={src} alt={name} style={{ ...style, objectFit: 'cover', opacity: opacities[index], filter: `blur(${Math.floor((1 - opacities[index]) * 50)}px)` }} />
                             <div style={{ opacity: 1 - opacities[index] }} className={`${mincho.className} ${1 - opacities[index] > 0 ? '' : 'hidden'} w-full p-1 text-center absolute top-1/2 -translate-y-1/2`}>
                                 <a className='text-lg'>NSFW</a>
                                 <br></br>
