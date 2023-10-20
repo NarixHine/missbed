@@ -37,6 +37,8 @@ Embed a note or a timeline of a user using `<iframe>`。
 
 You can read your own UID in `Settings - Other`.
 
+> NB: UID is not a handle (`@yukimori`), but in the form of a randomly generated string (e.g. `9hdihe2rmm`).
+
 ```html
 <iframe src='https://missbed.narix.link/timeline/{instance}/{user_id}' />
 
@@ -51,7 +53,6 @@ You can read your own UID in `Settings - Other`.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FNarixHine%2Fmissbed)
 
-## Use cases & examples
+## Examples
 
 - [Yukimori (bot homepage)](https://yukimori.narix.link/)
-- [Leaving.Ink (landing page)](https://leaving.ink/)
