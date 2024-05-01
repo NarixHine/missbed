@@ -31,7 +31,7 @@ Dark mode has now been supported. The system preference of the user is followed.
 
 ## Usage
 
-### Use `missbed.narix.link`
+### Use `missbed.vercel.app`
 
 Embed a note or a timeline of a user using `<iframe>`。
 
@@ -40,11 +40,11 @@ You can read your own UID in `Settings - Other`.
 > NB: UID is not a handle (`@yukimori`), but in the form of a randomly generated string (e.g. `9hdihe2rmm`).
 
 ```html
-<iframe src='https://missbed.narix.link/timeline/{instance}/{user_id}' />
+<iframe src='https://missbed.vercel.app/timeline/{instance}/{user_id}' />
 
-<iframe src='https://missbed.narix.link/timeboard/{instance}/{user_id}' />
+<iframe src='https://missbed.vercel.app/timeboard/{instance}/{user_id}' />
 
-<iframe src='https://missbed.narix.link/note/{instance}/{note_id}' />
+<iframe src='https://missbed.vercel.app/note/{instance}/{note_id}' />
 ```
 
 ### Deploy your own
